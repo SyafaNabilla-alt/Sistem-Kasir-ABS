@@ -6,12 +6,11 @@ Repository GitHub: https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS
 ---
 
 ## 1. Latar Belakang Masalah & Solusi
-Proses transaksi penjualan di toko **Alam Buah Segar (ABS)** sering menghadapi kendala operasional, yaitu sistemnya sering *lag*, *double scan* yang bikin kasir jadi nombok, terus rak sama sistemnya sering gak sinkron.
+Proses transaksi penjualan di toko **Alam Buah Segar (ABS)** sering menghadapi kendala operasional, yaitu sistem sering *lag* yang membuat antrian panjang, saat transaksi sistem selalu *double scan* dan tidak terdeteksi oleh sistem yang menyebabkan kasir jadi nombok, lalu stok di rak dan di sistem sering tidak sinkron.
 
 **Team XavierForce** hadir sebagai solusi aplikasi desktop terintegrasi yang menyediakan:
 * **Performa Anti-Lag & Transaksi Cepat:** Aplikasi berbasis Java Swing yang ringan, dilengkapi perhitungan total belanja otomatis dan pencegahan *double scan* barang.
 * **Sinkronisasi Rak & Stok Real-time:** Menyelaraskan data inventaris fisik di rak dengan sistem database secara akurat agar tidak ada lagi selisih.
-* **Cetak Struk Thermal:** Integrasi pencetakan bukti pembayaran belanja secara instan untuk pelanggan.
 
 ---
 
