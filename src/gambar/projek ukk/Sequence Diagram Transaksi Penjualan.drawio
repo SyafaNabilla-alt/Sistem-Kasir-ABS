@@ -1,0 +1,123 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="uNiYsCtewWB4th9kzlau">
+    <mxGraphModel dx="1383" dy="576" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-5" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeWidth=2;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Kasir&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="30" x="95" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 15px; background-color: rgb(0, 0, 51);&quot;&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;&lt;b&gt;SEQUENCE DIAGRAM TRANSAKSI PENJUALAN&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="190" x="330" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-54" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;strokeWidth=2;" value="&lt;b&gt;FormTransaksi&lt;/b&gt;" vertex="1">
+          <mxGeometry height="510" width="100" x="260" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-58" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;strokeWidth=2;" value="&lt;b&gt;ProsesTransaksi&lt;/b&gt;" vertex="1">
+          <mxGeometry height="530" width="100" x="455" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-92" parent="KZRcO2gojCCxdZOdsYyg-58" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="360" width="10" x="45" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-89" parent="1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="360" width="10" x="305" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-90" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-5" style="html=1;verticalAlign=bottom;startArrow=oval;endArrow=block;startSize=8;curved=0;rounded=0;exitX=0.978;exitY=0.909;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-89" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;1.Buka Menu Transaksi()&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="165" y="235" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-91" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;strokeWidth=2;" value="&lt;b&gt;Database&lt;/b&gt;" vertex="1">
+          <mxGeometry height="580" width="100" x="655" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-98" parent="KZRcO2gojCCxdZOdsYyg-91" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="230" width="10" x="45" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-93" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-89" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-92" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;2.Tampilkan Form()&lt;/font&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="355" y="260" />
+            </Array>
+            <mxPoint x="325" y="250" as="sourcePoint" />
+            <mxPoint x="405" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-94" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeWidth=2;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;3.Input(kode_produk, jumlah)&lt;/font&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="300" />
+            </Array>
+            <mxPoint x="125" y="300" as="sourcePoint" />
+            <mxPoint x="305" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-95" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-92" value="&lt;font size=&quot;1&quot;&gt;4.Hitung Subtotal()&lt;/font&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="340" />
+            </Array>
+            <mxPoint x="315" y="340" as="sourcePoint" />
+            <mxPoint x="485" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-96" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-89" value="&lt;span style=&quot;font-size: 10px;&quot;&gt;5.Input(uang_bayar)&lt;/span&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="370" />
+              <mxPoint x="295" y="370" />
+            </Array>
+            <mxPoint x="125" y="370" as="sourcePoint" />
+            <mxPoint x="285" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-97" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-89" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" target="KZRcO2gojCCxdZOdsYyg-92" value="&lt;font size=&quot;1&quot;&gt;6.Hitung Kembalian()&lt;/font&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="400" />
+              <mxPoint x="435" y="400" />
+            </Array>
+            <mxPoint x="325" y="400" as="sourcePoint" />
+            <mxPoint x="495" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-100" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-92" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;endSize=6;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-98" value="&lt;font size=&quot;1&quot;&gt;7.Simpan Transaksi &amp;amp; Update Stok()&lt;/font&gt;">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="440" />
+            </Array>
+            <mxPoint x="520" y="440" as="sourcePoint" />
+            <mxPoint x="705" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-101" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-98" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-92" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;8.Data Berhasil (True)&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="635" y="490" />
+            </Array>
+            <mxPoint x="705" y="490" as="sourcePoint" />
+            <mxPoint x="535" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-102" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-92" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;strokeWidth=2;" target="KZRcO2gojCCxdZOdsYyg-89" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;9.Tampilkan Data Struk&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="465" y="520" />
+              <mxPoint x="440" y="520" />
+            </Array>
+            <mxPoint x="495" y="520" as="sourcePoint" />
+            <mxPoint x="335" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KZRcO2gojCCxdZOdsYyg-103" edge="1" parent="1" source="KZRcO2gojCCxdZOdsYyg-89" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;strokeWidth=2;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;10.Cetak struk&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="215" y="540" />
+            </Array>
+            <mxPoint x="295" y="540" as="sourcePoint" />
+            <mxPoint x="125" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

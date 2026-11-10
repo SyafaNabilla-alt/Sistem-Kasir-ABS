@@ -1,0 +1,85 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="V2usFu1oOrVS0LjclqQ0">
+    <mxGraphModel dx="1342" dy="814" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="B0inyWmvN64ThkjVAHPP-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 20px; color: rgb(255, 255, 255);&quot;&gt;&lt;b style=&quot;background-color: rgb(0, 0, 51);&quot;&gt;Activity Diagram: Transaksi Penjualan&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="215" x="318" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-19" parent="1" style="swimlane;html=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=20;whiteSpace=wrap;fillColor=#ffcd28;gradientColor=#ffa500;strokeColor=#d79b00;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Sistem Kasir Alam Buah Segar&lt;/font&gt;" vertex="1">
+          <mxGeometry height="690" width="660" x="95" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-21" parent="B0inyWmvN64ThkjVAHPP-19" style="swimlane;html=1;startSize=20;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Kasir&lt;/font&gt;" vertex="1">
+          <mxGeometry height="670" width="320" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-23" parent="B0inyWmvN64ThkjVAHPP-21" style="ellipse;html=1;shape=startState;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="155" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-24" edge="1" parent="B0inyWmvN64ThkjVAHPP-21" source="B0inyWmvN64ThkjVAHPP-23" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#666666;rounded=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B0inyWmvN64ThkjVAHPP-28" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-46" edge="1" parent="B0inyWmvN64ThkjVAHPP-21" source="B0inyWmvN64ThkjVAHPP-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-28" parent="B0inyWmvN64ThkjVAHPP-21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Memilih Menu Transaksi Penjualan&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="110" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-32" parent="B0inyWmvN64ThkjVAHPP-21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Menginput Nominal Uang Bayar&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="110" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-47" edge="1" parent="B0inyWmvN64ThkjVAHPP-21" source="B0inyWmvN64ThkjVAHPP-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" target="B0inyWmvN64ThkjVAHPP-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-37" parent="B0inyWmvN64ThkjVAHPP-21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Menginput/Memilih Produk dan Jumlah&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="110" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-41" edge="1" parent="B0inyWmvN64ThkjVAHPP-19" source="B0inyWmvN64ThkjVAHPP-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" target="B0inyWmvN64ThkjVAHPP-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-22" parent="B0inyWmvN64ThkjVAHPP-19" style="swimlane;html=1;startSize=20;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Sistem&lt;/font&gt;" vertex="1">
+          <mxGeometry height="670" width="340" x="320" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-30" parent="B0inyWmvN64ThkjVAHPP-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Menampilkan Form Transaksi&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="125" x="115" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-43" edge="1" parent="B0inyWmvN64ThkjVAHPP-22" source="B0inyWmvN64ThkjVAHPP-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" target="B0inyWmvN64ThkjVAHPP-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-39" parent="B0inyWmvN64ThkjVAHPP-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Menghitung Subtotal, Total, dan Kembalian&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="135" x="116" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-45" edge="1" parent="B0inyWmvN64ThkjVAHPP-22" source="B0inyWmvN64ThkjVAHPP-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" target="B0inyWmvN64ThkjVAHPP-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-40" parent="B0inyWmvN64ThkjVAHPP-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Menyimpan Transaksi ke Database &amp;amp; Potong Stok&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="137" x="115" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-50" edge="1" parent="B0inyWmvN64ThkjVAHPP-22" source="B0inyWmvN64ThkjVAHPP-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="B0inyWmvN64ThkjVAHPP-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-44" parent="B0inyWmvN64ThkjVAHPP-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Cetak Struk Penjualan&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="137" x="115" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-49" parent="B0inyWmvN64ThkjVAHPP-22" style="ellipse;html=1;shape=endState;fillColor=#f5f5f5;strokeColor=#666666;gradientColor=#b3b3b3;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="168.5" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-36" edge="1" parent="B0inyWmvN64ThkjVAHPP-19" source="B0inyWmvN64ThkjVAHPP-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="B0inyWmvN64ThkjVAHPP-37">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="260" />
+            </Array>
+            <mxPoint x="270" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B0inyWmvN64ThkjVAHPP-48" edge="1" parent="B0inyWmvN64ThkjVAHPP-19" source="B0inyWmvN64ThkjVAHPP-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" target="B0inyWmvN64ThkjVAHPP-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

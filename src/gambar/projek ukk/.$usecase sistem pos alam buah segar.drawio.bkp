@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="m9-4Racu1kwrjxtuY6JF">
+    <mxGraphModel dx="1918" dy="681" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="" vertex="1">
+          <mxGeometry height="770" width="650" x="100" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=3;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Admin&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="30" x="-20" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-3" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeWidth=3;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Kasir&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="30" x="830" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 15px; color: rgb(255, 255, 255);&quot;&gt;&lt;b style=&quot;background-color: rgb(0, 0, 51);&quot;&gt;USECASE&amp;nbsp; SISTEM POS TOKO &quot;ALAM BUAH SEGAR&quot;&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="305" x="273" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;&quot;&gt;LOGIN&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="340" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Kelola Data User/Karyawan&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="200" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-9" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Kelola Data Produk, Stok, dan Diskon&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="200" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-10" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Transaksi Penjualan&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="480" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="5TifmuHTvrg4KhrDCEWb-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" value="&lt;span style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Transaksi Penjualan&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="480" y="440" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,114 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="BJRrS_2SDzH8TxVPgNay">
+    <mxGraphModel dx="1712" dy="1022" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CADAC8;fontColor=#333333;strokeColor=#666666;" value="" vertex="1">
+          <mxGeometry height="140" width="220" x="1010" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE599;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;5. Inspeksi Laporan Penjualan, Rekap Stok Produk, &amp;amp; Konfirmasi Data&lt;/font&gt;" vertex="1">
+          <mxGeometry height="85" width="180" x="1030" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Admin/Manager (Julian)&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="190" x="1025" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CADAC8;" value="" vertex="1">
+          <mxGeometry height="490" width="410" x="820" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-28" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="dUgCePCbmlUCJK5zuBQS-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;2. Validasi Data Transaksi &amp;amp; Hak Akses (Cek Stok Produk, Harga, dan Role User)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="140" x="850" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-29" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="dUgCePCbmlUCJK5zuBQS-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;3. Kalkulasi Subtotal, Total Belanja, &amp;amp; Update Kondisi Stok&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="140" x="850" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;4. Simpan Data Transaksi, Detail Penjualan, &amp;amp; Potong Stok di Database&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="140" x="850" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CADAC8;" value="" vertex="1">
+          <mxGeometry height="160" width="440" x="770" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-16" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.436;exitY=1.016;exitDx=0;exitDy=0;strokeWidth=2;entryX=0.426;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" target="dUgCePCbmlUCJK5zuBQS-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="864" y="1120" />
+              <mxPoint x="550" y="1120" />
+              <mxPoint x="550" y="210" />
+              <mxPoint x="910" y="210" />
+            </Array>
+            <mxPoint x="865" y="1060" as="sourcePoint" />
+            <mxPoint x="910" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-17" connectable="0" parent="dUgCePCbmlUCJK5zuBQS-16" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=0;" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Kirim Request Transaksi &amp;amp; Data Produk ke Backend&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2381" y="2" as="geometry">
+            <mxPoint x="2" y="-196" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCFF99;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;1. Login &amp;amp; Pilih Menu Transaksi Penjualan / Scan Barcode Produk&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="170" x="790" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-19" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeWidth=2;" target="dUgCePCbmlUCJK5zuBQS-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="760" />
+            </Array>
+            <mxPoint x="989.9999999999998" y="709.82" as="sourcePoint" />
+            <mxPoint x="1120" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-20" connectable="0" parent="dUgCePCbmlUCJK5zuBQS-19" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Terbitkan Kode Transaksi&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&amp;amp; Validasi Stok&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.3" y="3" as="geometry">
+            <mxPoint x="-13" y="25" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-22" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.544;exitY=0.994;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;exitPerimeter=0;" target="dUgCePCbmlUCJK5zuBQS-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="1110" />
+              <mxPoint x="1430" y="1110" />
+              <mxPoint x="1430" y="30" />
+              <mxPoint x="1120" y="30" />
+            </Array>
+            <mxPoint x="1160" y="43" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-23" connectable="0" parent="dUgCePCbmlUCJK5zuBQS-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Notifikasi Rekap Penjualan Masuk&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0007" as="geometry">
+            <mxPoint x="-10" y="-61" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#CCFF99;strokeColor=#82b366;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;7. Input Nominal Uang Bayar, Validasi Kembalian, &amp;amp; Cetak Struk Penjualan&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="170" x="1010" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;&amp;nbsp;Kasir&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="967" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Backend Engine &amp;amp; Basis Data&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="246" x="902" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-26" edge="1" parent="1" source="dUgCePCbmlUCJK5zuBQS-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeWidth=2;" target="dUgCePCbmlUCJK5zuBQS-7" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="1120" y="245" as="sourcePoint" />
+            <mxPoint x="1120" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-27" connectable="0" parent="dUgCePCbmlUCJK5zuBQS-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Klik Setuju &amp;amp; Kunci&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2516" y="-2" as="geometry">
+            <mxPoint x="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dUgCePCbmlUCJK5zuBQS-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FFFF;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;6. Kunci Status Transaksi &amp;amp; Update Laporan Penjualan (Status: SUCCESS di DB)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="140" x="1050" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

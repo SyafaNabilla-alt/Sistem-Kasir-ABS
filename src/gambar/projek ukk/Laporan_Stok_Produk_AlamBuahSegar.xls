@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta charset='UTF-8'>
+<style>
+body { font-family: Arial, sans-serif; }
+h2, h3 { text-align: center; color: #000000; margin: 2px; }
+p { text-align: center; color: #555; font-size: 11px; margin-bottom: 15px; }
+table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+th { color: white; padding: 8px 12px; border: 1px solid #ddd; text-align: center; font-size: 12px; }
+td { padding: 6px 10px; border: 1px solid #ddd; font-size: 11px; }
+</style>
+</head>
+<body>
+<h2>TOKO ALAM BUAH SEGAR</h2>
+<h3>Laporan Stok Produk & Inventaris</h3>
+<p>Tanggal Cetak: Sabtu, 24 Okt 2026</p>
+<br>
+<table>
+<thead>
+<tr bgcolor='#28a745'>
+<th>KODE</th>
+<th>NAMA PRODUK</th>
+<th>DISKON</th>
+<th>HARGA</th>
+<th>STOK RAK</th>
+<th>STOK GUDANG</th>
+<th>STOK SISTEM</th>
+<th>SATUAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align='center'>PRD101</td>
+<td align='left'>Jeruk Medan</td>
+<td align='right'>0</td>
+<td align='right'>25000</td>
+<td align='right'>5</td>
+<td align='right'>10</td>
+<td align='right'>8</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD103</td>
+<td align='left'>Mangga Harum</td>
+<td align='right'>500</td>
+<td align='right'>30000</td>
+<td align='right'>4</td>
+<td align='right'>15</td>
+<td align='right'>7</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD104</td>
+<td align='left'>Anggur Muscat</td>
+<td align='right'>0</td>
+<td align='right'>90000</td>
+<td align='right'>5</td>
+<td align='right'>10</td>
+<td align='right'>7</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD106</td>
+<td align='left'>Melon</td>
+<td align='right'>2000</td>
+<td align='right'>30000</td>
+<td align='right'>7</td>
+<td align='right'>4</td>
+<td align='right'>6</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD107</td>
+<td align='left'>Semangka</td>
+<td align='right'>1000</td>
+<td align='right'>20000</td>
+<td align='right'>10</td>
+<td align='right'>10</td>
+<td align='right'>10</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD108</td>
+<td align='left'>Matoa</td>
+<td align='right'>1500</td>
+<td align='right'>58000</td>
+<td align='right'>3</td>
+<td align='right'>0</td>
+<td align='right'>2</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD110</td>
+<td align='left'>Leci</td>
+<td align='right'>2000</td>
+<td align='right'>67000</td>
+<td align='right'>8</td>
+<td align='right'>5</td>
+<td align='right'>8</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD111</td>
+<td align='left'>Pepaya</td>
+<td align='right'>0</td>
+<td align='right'>12000</td>
+<td align='right'>3</td>
+<td align='right'>6</td>
+<td align='right'>6</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD112</td>
+<td align='left'>Durian</td>
+<td align='right'>2000</td>
+<td align='right'>75000</td>
+<td align='right'>7</td>
+<td align='right'>7</td>
+<td align='right'>5</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD113</td>
+<td align='left'>Pir</td>
+<td align='right'>2000</td>
+<td align='right'>28000</td>
+<td align='right'>9</td>
+<td align='right'>5</td>
+<td align='right'>9</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD114</td>
+<td align='left'>Nanas</td>
+<td align='right'>1000</td>
+<td align='right'>15000</td>
+<td align='right'>6</td>
+<td align='right'>7</td>
+<td align='right'>6</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD115</td>
+<td align='left'>Manggis</td>
+<td align='right'>500</td>
+<td align='right'>34000</td>
+<td align='right'>4</td>
+<td align='right'>6</td>
+<td align='right'>4</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD116</td>
+<td align='left'>Apel</td>
+<td align='right'>0</td>
+<td align='right'>38000</td>
+<td align='right'>5</td>
+<td align='right'>10</td>
+<td align='right'>5</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD117</td>
+<td align='left'>Pisang</td>
+<td align='right'>0</td>
+<td align='right'>22000</td>
+<td align='right'>5</td>
+<td align='right'>6</td>
+<td align='right'>5</td>
+<td align='center'>Kg</td>
+</tr>
+<tr>
+<td align='center'>PRD121</td>
+<td align='left'>Buah Naga</td>
+<td align='right'>0</td>
+<td align='right'>24000</td>
+<td align='right'>2</td>
+<td align='right'>5</td>
+<td align='right'>2</td>
+<td align='center'>Kg</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

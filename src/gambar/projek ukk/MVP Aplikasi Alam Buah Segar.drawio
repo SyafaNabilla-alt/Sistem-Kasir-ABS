@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="IVVbE51-ab3W-zEIOeTy">
+    <mxGraphModel dx="1712" dy="1090" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;font-size: 25px; color: rgb(255, 255, 255); background-color: rgb(0, 0, 51);&quot;&gt;Tahapan MVP: Aplikasi &quot;Alam Buah Segar&quot; &lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="540" x="520" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="610" width="600" x="120" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-8" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;span data-path-to-node=&quot;2,0,2,0,0,0&quot;&gt;&lt;b data-path-to-node=&quot;2,0,2,0,0,0&quot; data-index-in-node=&quot;0&quot;&gt;MVP Tahap 1: Alur Login &amp;amp; Hak Akses (Role)&lt;/b&gt;&amp;nbsp;&lt;/span&gt;&lt;span data-path-to-node=&quot;4,0,2,0,0,0&quot;&gt;Berdasarkan diagram login, sistem memastikan pengguna masuk, memvalidasi data, dan mengarahkan hak akses sesuai rolenya masing-masing (Admin, Kasir, atau Manager)&lt;/span&gt;&lt;span data-path-to-node=&quot;4,0,2,0,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;4,0,2,0,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="490" x="180" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Pendekatan Benar: Alur Aplikasi Kasir Berjalan Sejak Siklus Awal&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="556" x="134" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-10" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;b&gt;MVP Tahap 2: Core Fitur Kelola Data Produk (Admin)&amp;nbsp;&lt;/b&gt;&lt;span data-path-to-node=&quot;4,1,2,0,0,0&quot;&gt;Mengikuti alur kelola produk, Admin bisa mengakses menu produk, melihat data dari database, serta melakukan penambahan atau pembaruan data secara valid&lt;/span&gt;&lt;span data-path-to-node=&quot;4,1,2,0,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;4,1,2,0,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="490" x="180" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-12" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;b&gt;MVP Tahap 3: Core Fitur Utama Transaksi Penjualan (Kasir)&amp;nbsp;&lt;/b&gt;&lt;span data-path-to-node=&quot;4,2,2,0,0,0&quot;&gt;Ini inti dari aplikasi kasirnya. Berdasarkan diagram transaksi, alurnya mencakup input barcode produk, perhitungan total belanja otomatis, penginputan uang bayar, validasi kecukupan uang, pemotongan stok di database, hingga pencetakan struk&lt;/span&gt;&lt;span data-path-to-node=&quot;4,2,2,0,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;4,2,2,0,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="490" x="180" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;b&gt;Rilis Akhir: Polish UI &amp;amp; Integrasi Desain&amp;nbsp;&lt;/b&gt;&lt;span data-path-to-node=&quot;4,3,1,0,0,0&quot;&gt;Setelah seluruh logika backend dan alurnya &lt;i data-path-to-node=&quot;4,3,1,0,0,0&quot; data-index-in-node=&quot;43&quot;&gt;working end-to-end&lt;/i&gt; dari awal sampai akhir&lt;/span&gt;&lt;span data-path-to-node=&quot;4,3,1,0,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;4,3,1,0,0,2&quot;&gt;, barulah tahap akhir difokuskan pada penyempurnaan tampilan antarmuka dan integrasi desain Figma bersama anggota tim.&quot;&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="490" x="180" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="610" width="600" x="860" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-18" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;span data-path-to-node=&quot;2,0,0,0&quot;&gt;&lt;b data-path-to-node=&quot;2,0,0,0&quot; data-index-in-node=&quot;0&quot;&gt;Tahap 1 Langsung Bikin UI Cantik&lt;/b&gt;: Hanya fokus mempercantik tampilan antarmuka (UI) dan tombol-tombol yang mati tanpa menyambungkannya ke database&lt;/span&gt;&lt;span data-path-to-node=&quot;2,0,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;2,0,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="490" x="915" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-19" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;span data-path-to-node=&quot;2,1,0,0&quot;&gt;&lt;b data-path-to-node=&quot;2,1,0,0&quot; data-index-in-node=&quot;0&quot;&gt;Tahap 2 Bikin Tabel Database Terlalu Kompleks&lt;/b&gt;: Membuat struktur database yang sangat lengkap dan rumit, tetapi belum bisa diakses atau diuji oleh pengguna&lt;/span&gt;&lt;span data-path-to-node=&quot;2,1,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;2,1,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="490" x="915" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-20" edge="1" parent="1" source="fjiv74B2g2Rp5R7PVZmW-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="fjiv74B2g2Rp5R7PVZmW-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;span data-path-to-node=&quot;2,2,0,0&quot;&gt;&lt;b data-path-to-node=&quot;2,2,0,0&quot; data-index-in-node=&quot;0&quot;&gt;Tahap 3 Sibuk Bikin Fitur Tambahan&lt;/b&gt;: Malah mengerjakan fitur-fitur sekunder seperti sistem rating bintang atau diskon yang rumit, padahal alur transaksi utamanya sendiri belum bisa berfungsi&lt;/span&gt;&lt;span data-path-to-node=&quot;2,2,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;2,2,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="490" x="915" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;strokeWidth=2;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;span data-path-to-node=&quot;2,3,0,0&quot;&gt;&lt;b data-path-to-node=&quot;2,3,0,0&quot; data-index-in-node=&quot;0&quot;&gt;Hasil Akhir (Banyak Error)&lt;/b&gt;: Baru mencoba menghubungkan semua sistem di detik-detik akhir menjelang ujian, yang berakibat alur program terputus (&lt;i data-path-to-node=&quot;2,3,0,0&quot; data-index-in-node=&quot;144&quot;&gt;broken&lt;/i&gt;) dan banyak &lt;i data-path-to-node=&quot;2,3,0,0&quot; data-index-in-node=&quot;163&quot;&gt;error&lt;/i&gt; saat diuji&lt;/span&gt;&lt;span data-path-to-node=&quot;2,3,0,1&quot;&gt;&lt;sup class=&quot;superscript&quot;&gt;&lt;/sup&gt;&lt;/span&gt;&lt;span data-path-to-node=&quot;2,3,0,2&quot;&gt;.&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="490" x="915" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="fjiv74B2g2Rp5R7PVZmW-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Pendekatan Salah: Membangun Fitur Lepas (Tidak Bisa Dipakai)&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="556" x="904" y="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
