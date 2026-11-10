@@ -6,7 +6,7 @@ Repository GitHub: https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS
 ---
 
 ## 1. Latar Belakang Masalah & Solusi
-Pencatatan transaksi penjualan dan pengelolaan inventaris buah di toko **Alam Buah Segar (ABS)** sebelumnya masih manual, sehingga sistemnya sering *lag*, *double scan* yang bikin kasir jadi nombok, terus rak sama sistemnya sering gak sinkron.
+Proses transaksi penjualan di toko **Alam Buah Segar (ABS)** sering menghadapi kendala operasional, yaitu sistemnya sering *lag*, *double scan* yang bikin kasir jadi nombok, terus rak sama sistemnya sering gak sinkron.
 
 **POS ABS** hadir sebagai solusi aplikasi desktop terintegrasi yang menyediakan:
 * **Performa Anti-Lag & Transaksi Cepat:** Aplikasi berbasis Java Swing yang ringan, dilengkapi perhitungan total belanja otomatis dan pencegahan *double scan* barang.
@@ -19,7 +19,7 @@ Pencatatan transaksi penjualan dan pengelolaan inventaris buah di toko **Alam Bu
 * **Frontend / GUI:** Java Swing (NetBeans GUI Builder, Form-based Design).
 * **Backend Engine:** Java Native (Apache Ant Build System, JDBC Driver).
 * **Database:** MySQL / MariaDB (InnoDB Engine, XAMPP Server port 3306).
-* **Security & Access:** Role-Based Access Control (Admin & Kasir).
+* **Security & Access:** Role-Based Access Control (Admin, Kasir, & Manager).
 
 ---
 
@@ -35,19 +35,20 @@ Ikuti langkah berikut untuk menjalankan aplikasi di lingkungan lokal:
 ---
 
 ## 4. Akun Pengujian Default (Credentials)
-Gunakan kredensial berikut untuk menguji hak akses pada aplikasi:
+Gunakan kredensial berikut untuk menguji hak akses multi-role pada aplikasi:
 
 | Role Pengguna | Username | Password | Hak Akses Utama |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin` | `admin123` | Kelola master produk, kelola user, & rekap laporan global. |
-| **Kasir** | `kasir` | `kasir123` | Melakukan transaksi kasir & cetak struk belanja. |
+| **Admin** | `julianAdmin` | `julianAdmin123` | Kelola master produk, kelola user, & rekap laporan global. |
+| **Kasir** | `chapaKasir` | `chapaKasir123` | Melakukan transaksi kasir & cetak struk belanja. |
+| **Manager** | `messaManager` | `messaManager123` | Memantau laporan penjualan saja. |
 
 ---
 
 ## 5. Tim Pengembang & Pembimbing
 Proyek Uji Kompetensi Keahlian (UKK) PPLG — **SMK Budi Bakti Ciwidey (2026)**
 
-* **Kelompok:** XavierForce
+* **Team:** XavierForce
 * **Syafa Nabilla Maharani** — Backend Developer & Database Administrator
 * **Messa Lutfia** — Frontend Developer & UI/UX
 
