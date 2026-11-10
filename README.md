@@ -1,42 +1,54 @@
-#  Sistem Kasir POS – Alam Buah Segar (ABS)
+# 🍎 POS Alam Buah Segar (ABS)
+Sistem Kasir Desktop Berbasis Java Swing untuk Toko Buah Ciwidey.
 
-[![Release](https://img.shields.io/badge/Release-v1.0.0--rc-0D9488?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS/releases)
-[![Build Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS)
-[![Security Audit](https://img.shields.io/badge/Security-Protected-3B82F6?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS)
-[![License](https://img.shields.io/badge/License-MIT-slate?style=for-the-badge)](LICENSE)
-
-> Proyek Uji Kompetensi Keahlian (UKK) Rekayasa Perangkat Lunak / PPLG — Tahun Ajaran 2025/2026
-> **Tema:** Local Digital Solution • **Mitra:** Toko Buah Alam Buah Segar (ABS) Ciwidey
+Repository GitHub: https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS
 
 ---
 
-##  1. Latar Belakang Masalah & Solusi
-Pencatatan transaksi penjualan dan pengelolaan inventaris buah di toko **Alam Buah Segar (ABS)** sebelumnya masih menggunakan cara konvensional, sehingga rentan terhadap kesalahan hitung manual, kesulitan rekap laporan harian, dan antrean kasir yang lambat.
+## 1. Latar Belakang Masalah & Solusi
+Pencatatan transaksi penjualan dan pengelolaan inventaris buah di toko **Alam Buah Segar (ABS)** sebelumnya masih manual, sehingga sistemnya sering *lag*, *double scan* yang bikin kasir jadi nombok, terus rak sama sistemnya sering gak sinkron.
 
 **POS ABS** hadir sebagai solusi aplikasi desktop terintegrasi yang menyediakan:
-1. **Manajemen Transaksi Cepat:** Perhitungan total belanja otomatis dan fitur pencegahan *double scan* barang.
-2. **Kontrol Stok Buah Real-time:** Memantau ketersediaan stok produk buah secara akurat.
-3. **Cetak Struk Thermal:** Integrasi pencetakan bukti pembayaran belanja secara instan untuk pelanggan.
+* **Performa Anti-Lag & Transaksi Cepat:** Aplikasi berbasis Java Swing yang ringan, dilengkapi perhitungan total belanja otomatis dan pencegahan *double scan* barang.
+* **Sinkronisasi Rak & Stok Real-time:** Menyelaraskan data inventaris fisik di rak dengan sistem database secara akurat agar tidak ada lagi selisih.
+* **Cetak Struk Thermal:** Integrasi pencetakan bukti pembayaran belanja secara instan untuk pelanggan.
 
 ---
 
-##  2. Tech Stack & Architecture
+## 2. Tech Stack & Architecture
 * **Frontend / GUI:** Java Swing (NetBeans GUI Builder, Form-based Design).
 * **Backend Engine:** Java Native (Apache Ant Build System, JDBC Driver).
 * **Database:** MySQL / MariaDB (InnoDB Engine, XAMPP Server port 3306).
-* **Security & Access:** Role-Based Access Control (Admin, Kasir, Petugas).
+* **Security & Access:** Role-Based Access Control (Admin & Kasir).
 
 ---
 
-##  3. Panduan Instalasi Lokal (Quick Local Setup)
+## 3. Panduan Instalasi Lokal (Quick Local Setup)
 Ikuti langkah berikut untuk menjalankan aplikasi di lingkungan lokal:
 
-### Prasyarat Sistem:
-* Java Development Kit (JDK / JRE 17+)
-* XAMPP Server (MySQL)
-* NetBeans IDE (Apache NetBeans)
+* **Prasyarat Sistem:** Java Development Kit (JDK / JRE 17+), XAMPP Server (MySQL), dan NetBeans IDE.
+* **Langkah Menjalankan:**
+  1. Kloning repositori: `git clone https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS.git`
+  2. Nyalakan XAMPP MySQL (Port `3306`) dan gunakan database project POS ABS yang sudah ada.
+  3. Buka folder `dist` dan jalankan file *executable* **`POS_AlamBuahSegar.jar`** (atau jalankan *Run* melalui NetBeans IDE).
 
-### Langkah Menjalankan:
-1. **Kloning Repositori:**
-   ```bash
-   git clone [https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS.git](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS.git)
+---
+
+## 4. Akun Pengujian Default (Credentials)
+Gunakan kredensial berikut untuk menguji hak akses pada aplikasi:
+
+| Role Pengguna | Username | Password | Hak Akses Utama |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin` | `admin123` | Kelola master produk, kelola user, & rekap laporan global. |
+| **Kasir** | `kasir` | `kasir123` | Melakukan transaksi kasir & cetak struk belanja. |
+
+---
+
+## 5. Tim Pengembang & Pembimbing
+Proyek Uji Kompetensi Keahlian (UKK) PPLG — **SMK Budi Bakti Ciwidey (2026)**
+
+* **Kelompok:** XavierForce
+* **Syafa Nabilla Maharani** — Backend Developer & Database Administrator
+* **Messa Lutfia** — Frontend Developer & UI/UX
+
+*Guru Pembimbing:* Bapak Nurdiansyah Permana
