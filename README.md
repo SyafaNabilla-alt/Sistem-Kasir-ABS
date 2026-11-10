@@ -1,5 +1,12 @@
-#  POS Alam Buah Segar (ABS)
-Sistem Kasir Desktop Berbasis Java Swing untuk Toko Buah Ciwidey.
+#  Sistem Kasir POS – Alam Buah Segar (ABS)
+
+[![Release](https://img.shields.io/badge/Release-v1.0.0--rc-0D9488?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS/releases)
+[![Build Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS)
+[![Security Audit](https://img.shields.io/badge/Security-Protected-3B82F6?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS)
+[![License](https://img.shields.io/badge/License-MIT-slate?style=for-the-badge)](LICENSE)
+
+> Proyek Uji Kompetensi Keahlian (UKK) Rekayasa Perangkat Lunak / PPLG — Tahun Ajaran 2025/2026
+> **Tema:** Local Digital Solution • **Mitra:** Toko Alam Buah Segar (ABS) Ciwidey, Tenjolaya, Kec. Pasirjambu Kab. Bandung, Jawa Barat 40972
 
 Repository GitHub: https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS
 
