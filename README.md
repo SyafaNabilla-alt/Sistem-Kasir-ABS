@@ -1,4 +1,4 @@
-# 🍎 POS Alam Buah Segar (ABS)
+#  POS Alam Buah Segar (ABS)
 Sistem Kasir Desktop Berbasis Java Swing untuk Toko Buah Ciwidey.
 
 Repository GitHub: https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS
