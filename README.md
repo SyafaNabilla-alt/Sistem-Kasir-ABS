@@ -1,4 +1,4 @@
-# Sistem Kasir POS – Alam Buah Segar (ABS)
+#  Sistem Kasir POS – Alam Buah Segar (ABS)
 
 [![Release](https://img.shields.io/badge/Release-v1.0.0--rc-0D9488?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS/releases)
 [![Build Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://github.com/SyafaNabilla-alt/Sistem-Kasir-ABS)
