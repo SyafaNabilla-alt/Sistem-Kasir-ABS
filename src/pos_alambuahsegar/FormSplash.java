@@ -4,6 +4,8 @@
  */
 package pos_alambuahsegar;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author ASUS
@@ -15,9 +17,57 @@ public class FormSplash extends javax.swing.JFrame {
             
     public FormSplash() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); 
-        mulaiLoading();
+        
+        new Thread(new Runnable() {
+    @Override
+    public void run() {
+        try {
+            // Tahap 1: Inisialisasi awal sistem
+            jBar1.setValue(20);
+            Thread.sleep(300); // Penjeda halus biar animasi mulus
+
+            // Tahap 2: Cek Driver dan Koneksi Database MySQL (XAMPP)
+            jBar1.setValue(50);
+            // jLabelStatus.setText("Menghubungkan ke Database MySQL...");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/db_pos_alam_buah_segar";
+            String user = "root";
+            String password = "";
+            java.sql.Connection conn = java.sql.DriverManager.getConnection(url, user, password);
+            Thread.sleep(400);
+
+            // Tahap 3: Verifikasi tabel atau data siap
+            jBar1.setValue(80);
+            if (conn != null) {
+                // Koneksi berhasil terhubung ke database!
+                Thread.sleep(300);
+            }
+
+            // Tahap 4: Selesai 100%
+            jBar1.setValue(100);
+            Thread.sleep(300);
+
+            // Buka Form Login dan tutup Splash Screen
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new FormLogin().setVisible(true); 
+                }
+            });
+            dispose();
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, 
+                "Koneksi ke Database Gagal!\nPastikan XAMPP MySQL sudah dinyalakan.\n\nError: " + e.getMessage(), 
+                "Database Error", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+         }
+        }).start();
     }
+    
     private void mulaiLoading() {
         timer = new javax.swing.Timer(30, new java.awt.event.ActionListener() {
             @Override
