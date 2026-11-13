@@ -63,6 +63,11 @@ public class FormPengguna extends javax.swing.JFrame {
         java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
         
         String cari = txtCari.getText().trim();
+        // TAMBAHKAN BARIS INI: Abaikan teks placeholder agar tidak ikut tercari
+        if (cari.equals("Cari nama pengguna, username, atau role...")) {
+            cari = "";
+        }
+        
         String filterRole = cmbFilterRole.getSelectedItem().toString();
         String filterStatus = cmbFilterStatus.getSelectedItem().toString();
 
