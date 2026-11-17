@@ -409,6 +409,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         txtBayar = new javax.swing.JTextField();
         txtKembalian = new javax.swing.JTextField();
         txtTotalHarga = new javax.swing.JTextField();
+        cmbMetode = new javax.swing.JComboBox<>();
         txtCari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1115,9 +1116,27 @@ public class FormTransaksi extends javax.swing.JFrame {
             }
         });
 
+        txtBayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBayarActionPerformed(evt);
+            }
+        });
+
         txtTotalHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalHargaActionPerformed(evt);
+            }
+        });
+
+        cmbMetode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tunai", "Qris", "Transfer" }));
+        cmbMetode.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbMetodeItemStateChanged(evt);
+            }
+        });
+        cmbMetode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMetodeActionPerformed(evt);
             }
         });
 
@@ -1131,15 +1150,13 @@ public class FormTransaksi extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel20))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtTotalItem, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(txtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1147,19 +1164,21 @@ public class FormTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbMetode, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(txtTotalItem, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(105, 105, 105))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1181,14 +1200,13 @@ public class FormTransaksi extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBatal)
-                        .addComponent(btnBayar)))
-                .addGap(40, 40, 40))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtKembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBatal)
+                    .addComponent(cmbMetode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBayar))
+                .addGap(37, 37, 37))
         );
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, -1, 650));
@@ -1263,12 +1281,13 @@ public class FormTransaksi extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Keranjang belanja masih kosong!");
             return;
         }
-
-        // VALIDASI: Cek apakah kolom bayar kosong agar tidak error empty String
-        if (txtBayar.getText().trim().isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Nominal uang pembayaran belum diisi!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
-            txtBayar.requestFocus();
-            return;
+        
+        String metodePembayaran = cmbMetode.getSelectedItem().toString();
+    
+        if (metodePembayaran.equalsIgnoreCase("Tunai") && txtBayar.getText().trim().isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Nominal uang pembayaran belum diisi!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+        txtBayar.requestFocus();
+        return;
         }
 
         // Validasi: Cek apakah stok di rak mencukupi sebelum transaksi diproses
@@ -1298,22 +1317,29 @@ public class FormTransaksi extends javax.swing.JFrame {
         // 1. Buat Nomor Struk otomatis
         String noStruk = "TRX-" + System.currentTimeMillis();
         
-        // Ambil total belanja dan uang bayar, lalu hitung kembalian
         double totalBelanja = Double.parseDouble(txtTotalHarga.getText().replaceAll("[^0-9]", ""));
-        double uangBayar = Double.parseDouble(txtBayar.getText().replaceAll("[^0-9]", ""));
-        double kembalian = uangBayar - totalBelanja; 
+        double uangBayar = 0;
+        double kembalian = 0;
+
+        if (metodePembayaran.equalsIgnoreCase("Tunai")) {
+        uangBayar = Double.parseDouble(txtBayar.getText().replaceAll("[^0-9]", ""));
+        kembalian = uangBayar - totalBelanja;
+        } else {
+        uangBayar = totalBelanja;
+        kembalian = 0;
+        }
         
         // AMBIL ID USER YANG SEDANG LOGIN SECARA DINAMIS
         int idUser = com.alambuahsegar.config.Session.id_pengguna;
 
-        // 2. Simpan ke tabel utama 'transaksi' (Menyertakan uang_bayar dan kembalian)
-        String sqlTrx = "INSERT INTO transaksi (no_struk, tanggal_transaksi, total_belanja, id_pengguna, uang_bayar, kembalian) VALUES (?, NOW(), ?, ?, ?, ?)";
+        String sqlTrx = "INSERT INTO transaksi (no_struk, tanggal_transaksi, total_belanja, id_pengguna, uang_bayar, kembalian, metode_pembayaran) VALUES (?, NOW(), ?, ?, ?, ?, ?)";
         java.sql.PreparedStatement pstTrx = conn.prepareStatement(sqlTrx, java.sql.Statement.RETURN_GENERATED_KEYS);
         pstTrx.setString(1, noStruk);
         pstTrx.setDouble(2, totalBelanja);
         pstTrx.setInt(3, idUser);
         pstTrx.setDouble(4, uangBayar);
         pstTrx.setDouble(5, kembalian);
+        pstTrx.setString(6, metodePembayaran);
         pstTrx.executeUpdate();
 
         // Ambil ID transaksi yang baru saja dibuat
@@ -1625,6 +1651,31 @@ public class FormTransaksi extends javax.swing.JFrame {
     pnlIsiBuah.repaint();
     }//GEN-LAST:event_txtCariActionPerformed
 
+    private void txtBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBayarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBayarActionPerformed
+
+    private void cmbMetodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMetodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMetodeActionPerformed
+
+    private void cmbMetodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbMetodeItemStateChanged
+    if (cmbMetode.getSelectedItem() != null) {
+            String metode = cmbMetode.getSelectedItem().toString();
+            
+            if (metode.equalsIgnoreCase("Tunai")) {
+                txtBayar.setEnabled(true);     
+                txtKembalian.setEnabled(true); 
+                txtBayar.requestFocus();
+            } else {
+                txtBayar.setText("");          
+                txtBayar.setEnabled(false);    
+                txtKembalian.setText("0");     
+                txtKembalian.setEnabled(false); 
+            }
+        }
+    }//GEN-LAST:event_cmbMetodeItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1664,6 +1715,7 @@ public class FormTransaksi extends javax.swing.JFrame {
     private javax.swing.JButton btnBatal;
     private javax.swing.JButton btnBayar;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JComboBox<String> cmbMetode;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;

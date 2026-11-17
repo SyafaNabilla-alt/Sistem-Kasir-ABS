@@ -135,7 +135,10 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             } catch (Exception e) {}
 
             double total = rsTable.getDouble("total_belanja");
-            String metode = "Tunai";
+            String metode = rsTable.getString("metode_pembayaran");
+            if (metode == null || metode.isEmpty()) {
+            metode = "Tunai"; // Fallback jika data lamanya kosong/null
+            }
 
             model.addRow(new Object[]{
                 tanggal,
@@ -475,8 +478,8 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         
         java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
         
-        // Query Data Transaksi Utama
-        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, p.nama_pengguna " +
+        // Query Data Transaksi Utama (Ditambah t.metode_pembayaran)
+        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
                         "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
                         "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
                         "ORDER BY t.tanggal_transaksi DESC";
@@ -535,13 +538,18 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         writer.write("</tr>\n");
 
         while (rsTrx.next()) {
+            String metode = rsTrx.getString("metode_pembayaran");
+            if (metode == null || metode.isEmpty()) {
+                metode = "Tunai";
+            }
+
             writer.write("<tr>\n");
             writer.write("  <td>" + rsTrx.getString("no_struk") + "</td>\n");
             writer.write("  <td>" + rsTrx.getString("tanggal_transaksi") + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("total_belanja")) + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
-            writer.write("  <td>Tunai</td>\n");
+            writer.write("  <td>" + metode + "</td>\n");
             writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
             writer.write("</tr>\n");
         }
@@ -626,8 +634,8 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             java.io.FileWriter writer = new java.io.FileWriter(filePath);
             java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
             
-            // Query Data Transaksi Utama dengan Filter Tanggal
-            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, p.nama_pengguna " +
+            // Query Data Transaksi Utama dengan Filter Tanggal (Ditambah t.metode_pembayaran)
+            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
                             "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
                             "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
                             "ORDER BY t.tanggal_transaksi DESC";
@@ -687,13 +695,18 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.write("</tr>\n");
 
             while (rsTrx.next()) {
+                String metode = rsTrx.getString("metode_pembayaran");
+                if (metode == null || metode.isEmpty()) {
+                    metode = "Tunai";
+                }
+
                 writer.write("<tr>\n");
                 writer.write("  <td>" + rsTrx.getString("no_struk") + "</td>\n");
                 writer.write("  <td>" + rsTrx.getString("tanggal_transaksi") + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("total_belanja")) + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
-                writer.write("  <td>Tunai</td>\n");
+                writer.write("  <td>" + metode + "</td>\n");
                 writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
                 writer.write("</tr>\n");
             }

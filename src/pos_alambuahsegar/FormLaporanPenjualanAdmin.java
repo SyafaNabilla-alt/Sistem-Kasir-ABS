@@ -32,10 +32,10 @@ public class FormLaporanPenjualanAdmin extends javax.swing.JFrame {
     // 2. Pasang kembali panel grafik ke dalam kotak panel di bawah tabel
     // (Pastikan "panelGrafikLaporan" disesuaikan dengan nama variabel panel putih di jendela Navigator NetBeans kamu)
     panelGrafikLaporan.setLayout(new java.awt.BorderLayout());
-panelGrafikLaporan.removeAll(); // Bersihkan dulu jika ada komponen lama
-panelGrafikLaporan.add(new GrafikLaporanPanel(), java.awt.BorderLayout.CENTER);
-panelGrafikLaporan.revalidate(); // Refresh layout panel
-panelGrafikLaporan.repaint();    // Gambar ulang panel
+    panelGrafikLaporan.removeAll(); // Bersihkan dulu jika ada komponen lama
+    panelGrafikLaporan.add(new GrafikLaporanPanel(), java.awt.BorderLayout.CENTER);
+    panelGrafikLaporan.revalidate(); // Refresh layout panel
+    panelGrafikLaporan.repaint();    // Gambar ulang panel
     
     // 3. Atur warna teks "Berhasil" pada kolom status menjadi hijau tebal
     tblRiwayat.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
@@ -76,33 +76,33 @@ panelGrafikLaporan.repaint();    // Gambar ulang panel
         lblTotalTransaksi.setText(jumlTrx + " Struk");
 
         // 2. Peringatan Stok
-String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk";
-java.sql.ResultSet rsStokData = stmt.executeQuery(sqlStok);
+        String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk";
+        java.sql.ResultSet rsStokData = stmt.executeQuery(sqlStok);
 
-int totalHabis = 0;
-int totalSelisih = 0;
-int totalMenipis = 0;
+        int totalHabis = 0;
+        int totalSelisih = 0;
+        int totalMenipis = 0;
 
-while (rsStokData.next()) {
-    int stokRak = rsStokData.getInt("stok_di_rak");
-    int stokSistem = rsStokData.getInt("total_stok_sistem");
+        while (rsStokData.next()) {
+        int stokRak = rsStokData.getInt("stok_di_rak");
+        int stokSistem = rsStokData.getInt("total_stok_sistem");
     
-    if (stokRak == 0 && stokSistem == 0) {
+        if (stokRak == 0 && stokSistem == 0) {
         totalHabis++;
-    } else if (stokRak != stokSistem) {
+        } else if (stokRak != stokSistem) {
         totalSelisih++;
-    } else if (stokRak <= 5) {
+        } else if (stokRak <= 5) {
         totalMenipis++;
+        }
     }
-}
 
-int totalPeringatan = totalHabis + totalSelisih + totalMenipis;
+    int totalPeringatan = totalHabis + totalSelisih + totalMenipis;
 
-// Bagian tengah (menampilkan angka total produk)
-lblPeringatan.setText(totalPeringatan + " Produk");
+    // Bagian tengah (menampilkan angka total produk)
+    lblPeringatan.setText(totalPeringatan + " Produk");
 
-// Bagian bawah / subtitle (menampilkan rincian detail)
-lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " + totalMenipis + " menipis");
+    // Bagian bawah / subtitle (menampilkan rincian detail)
+    lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " + totalMenipis + " menipis");
 
         // 3. Promo Aktif
         String sqlPromo = "SELECT COUNT(*) AS jml_promo FROM produk WHERE harga_diskon > 0";
@@ -136,7 +136,10 @@ lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " +
             } catch (Exception e) {}
 
             double total = rsTable.getDouble("total_belanja");
-            String metode = "Tunai";
+            String metode = rsTable.getString("metode_pembayaran");
+            if (metode == null || metode.isEmpty()) {
+            metode = "Tunai"; // Fallback jika data lamanya kosong/null
+            }
 
             model.addRow(new Object[]{
                 tanggal,
@@ -518,8 +521,8 @@ lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " +
         
         java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
         
-        // Query Data Transaksi Utama
-        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, p.nama_pengguna " +
+        // Query Data Transaksi Utama (Ditambah t.metode_pembayaran)
+        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
                         "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
                         "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
                         "ORDER BY t.tanggal_transaksi DESC";
@@ -578,13 +581,18 @@ lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " +
         writer.write("</tr>\n");
 
         while (rsTrx.next()) {
+            String metode = rsTrx.getString("metode_pembayaran");
+            if (metode == null || metode.isEmpty()) {
+                metode = "Tunai";
+            }
+
             writer.write("<tr>\n");
             writer.write("  <td>" + rsTrx.getString("no_struk") + "</td>\n");
             writer.write("  <td>" + rsTrx.getString("tanggal_transaksi") + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("total_belanja")) + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
-            writer.write("  <td>Tunai</td>\n");
+            writer.write("  <td>" + metode + "</td>\n");
             writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
             writer.write("</tr>\n");
         }
@@ -669,8 +677,8 @@ lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " +
             java.io.FileWriter writer = new java.io.FileWriter(filePath);
             java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
             
-            // Query Data Transaksi Utama dengan Filter Tanggal
-            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, p.nama_pengguna " +
+            // Query Data Transaksi Utama dengan Filter Tanggal (Ditambah t.metode_pembayaran)
+            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
                             "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
                             "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
                             "ORDER BY t.tanggal_transaksi DESC";
@@ -730,13 +738,18 @@ lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " +
             writer.write("</tr>\n");
 
             while (rsTrx.next()) {
+                String metode = rsTrx.getString("metode_pembayaran");
+                if (metode == null || metode.isEmpty()) {
+                    metode = "Tunai";
+                }
+
                 writer.write("<tr>\n");
                 writer.write("  <td>" + rsTrx.getString("no_struk") + "</td>\n");
                 writer.write("  <td>" + rsTrx.getString("tanggal_transaksi") + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("total_belanja")) + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
-                writer.write("  <td>Tunai</td>\n");
+                writer.write("  <td>" + metode + "</td>\n");
                 writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
                 writer.write("</tr>\n");
             }
