@@ -1252,22 +1252,43 @@ public class FormTransaksi extends javax.swing.JFrame {
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         try {
-        // 1. Kosongkan baris di tabel keranjang belanja
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblKeranjang.getModel();
-        model.setRowCount(0);
+        int konfirmasi = javax.swing.JOptionPane.showConfirmDialog(this, 
+                "Apakah Anda yakin ingin membatalkan transaksi ini?", 
+                "Konfirmasi Batal", javax.swing.JOptionPane.YES_NO_OPTION);
+        
+        if (konfirmasi == javax.swing.JOptionPane.YES_OPTION) {
+            java.sql.Connection conn = (java.sql.Connection) com.alambuahsegar.config.DatabaseConnection.getConnection();
+            
+            // Ambil total belanja dari form
+            String hargaText = txtTotalHarga.getText().replace("Rp", "").replace(".", "").trim();
+            double totalBelanja = hargaText.isEmpty() ? 0 : Double.parseDouble(hargaText);
+            
+            // Buat nomor struk unik untuk penanda batal
+            String noStrukBatal = "TRX-BATAL-" + System.currentTimeMillis();
+            
+            // Query INSERT sesuai persis dengan kolom di database phpMyAdmin kamu
+            String sql = "INSERT INTO transaksi (no_struk, tanggal_transaksi, id_pengguna, total_belanja, uang_bayar, kembalian, metode_pembayaran, status_pesanan) VALUES (?, NOW(), 14, ?, 0, 0, 'Tunai', 'Batal')";
+            
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, noStrukBatal);
+            pst.setDouble(2, totalBelanja);
+            pst.executeUpdate();
 
-        // 2. Reset teks total item, total harga, bayar, dan kembalian ke awal
-        txtTotalItem.setText("0");
-        txtTotalHarga.setText("Rp 0");
-        txtBayar.setText("");
-        txtKembalian.setText("Rp 0");
+            // Reset form keranjang belanja
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblKeranjang.getModel();
+            model.setRowCount(0);
 
-        // Opsional: Berikan konfirmasi lembut atau biarkan langsung bersih
-        // javax.swing.JOptionPane.showMessageDialog(this, "Transaksi dibatalkan, keranjang dikosongkan.");
+            txtTotalItem.setText("0");
+            txtTotalHarga.setText("Rp 0");
+            txtBayar.setText("");
+            txtKembalian.setText("Rp 0");
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Transaksi dibatalkan dan berhasil tercatat di sistem.");
+        }
 
     } catch (Exception e) {
         e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Gagal mencatat status batal ke database: " + e.getMessage());
     }
     }//GEN-LAST:event_btnBatalActionPerformed
 

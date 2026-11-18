@@ -16,6 +16,29 @@ public class FormLaporanPenjualanAdmin extends javax.swing.JFrame {
      */
     public FormLaporanPenjualanAdmin() {
     initComponents();
+    tblRiwayat.getColumnModel().getColumn(5).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        
+        if (value != null) {
+            String status = value.toString();
+            setHorizontalAlignment(javax.swing.JLabel.CENTER);
+            
+            if (status.equalsIgnoreCase("Batal")) {
+                c.setForeground(java.awt.Color.RED); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            } else if (status.equalsIgnoreCase("Pending")) {
+                c.setForeground(new java.awt.Color(220, 150, 0)); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            } else {
+                c.setForeground(new java.awt.Color(0, 153, 0)); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            }
+        }
+        return c;
+    }
+});
     tampilkanData();
     com.alambuahsegar.config.Session.setSidebarInfo(jLabelTanggal, jLabelUser);
     
@@ -83,34 +106,43 @@ public class FormLaporanPenjualanAdmin extends javax.swing.JFrame {
         model.setRowCount(0);
 
         while (res.next()) {
-    double subTotal = res.getDouble("total_belanja");
-    totalNominal += subTotal; 
+            double subTotal = res.getDouble("total_belanja");
+            totalNominal += subTotal; 
 
-    // Ganti nama variabel jadi metodeTrx & statusTrx
-    String metodeTrx = res.getString("metode_pembayaran");
-    if (metodeTrx == null || metodeTrx.trim().isEmpty()) {
-        metodeTrx = "Tunai";
-    }
+            // Cek metode pembayaran
+            String metodeTrx = res.getString("metode_pembayaran");
+            if (metodeTrx == null || metodeTrx.trim().isEmpty()) {
+                metodeTrx = "Tunai";
+            }
 
-    String statusTrx = res.getString("status_pesanan");
-    if (statusTrx == null || statusTrx.trim().isEmpty()) {
-        statusTrx = "Selesai";
-    }
+            // Cek status pesanan agar tampil sesuai database (Batal / Pending / Selesai)
+            String statusDb = res.getString("status_pesanan");
+            String statusTrx;
 
-    model.addRow(new Object[]{
-        res.getString("tanggal_transaksi"), 
-        res.getString("no_struk"),         
-        res.getString("nama_pengguna"),    
-        String.format("%,.0f", res.getDouble("total_belanja")), 
-        metodeTrx, 
-        statusTrx  
-    });
-}
+            if (statusDb == null || statusDb.trim().isEmpty()) {
+                statusTrx = "Selesai";
+            } else if (statusDb.equalsIgnoreCase("Batal")) {
+                statusTrx = "Batal";
+            } else if (statusDb.equalsIgnoreCase("Pending")) {
+                statusTrx = "Pending";
+            } else {
+                statusTrx = statusDb; 
+            }
+
+            model.addRow(new Object[]{
+                res.getString("tanggal_transaksi"), 
+                res.getString("no_struk"),         
+                res.getString("nama_pengguna"),    
+                String.format("%,.0f", res.getDouble("total_belanja")), 
+                metodeTrx, 
+                statusTrx  
+            });
+        }
 
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
     }
- }
+}
     
    public void loadDataLaporan() {
     try {
@@ -195,17 +227,32 @@ public class FormLaporanPenjualanAdmin extends javax.swing.JFrame {
             double total = rsTable.getDouble("total_belanja");
             String metode = rsTable.getString("metode_pembayaran");
             if (metode == null || metode.isEmpty()) {
-            metode = "Tunai"; // Fallback jika data lamanya kosong/null
+            metode = "Tunai"; 
             }
+            
+            String statusDb = rsTable.getString("status_pesanan");
+            String statusTampil = "Berhasil";
 
-            model.addRow(new Object[]{
-                tanggal,
-                kodeTrx,
-                kasir,
-                "Rp " + String.format("%,.0f", total).replace(",", "."),
-                metode,
-                "Berhasil"
-            });
+    if (statusDb != null) {
+    if (statusDb.equalsIgnoreCase("Batal")) {
+        statusTampil = "Batal"; // Atau "Gagal" sesuai selera kamu
+    } else if (statusDb.equalsIgnoreCase("Pending")) {
+        statusTampil = "Pending";
+    } else if (statusDb.equalsIgnoreCase("Selesai")) {
+        statusTampil = "Berhasil";
+    } else {
+        statusTampil = statusDb;
+    }
+}
+
+model.addRow(new Object[]{
+    tanggal,
+    kodeTrx,
+    kasir,
+    "Rp " + String.format("%,.0f", total).replace(",", "."),
+    metode,
+    statusTampil
+});
         }
         
         tblRiwayat.setRowHeight(35); 

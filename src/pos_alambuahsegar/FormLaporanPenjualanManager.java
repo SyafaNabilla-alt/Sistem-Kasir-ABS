@@ -17,6 +17,31 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
      */
     public FormLaporanPenjualanManager() {
     initComponents();
+    tblRiwayat.getColumnModel().getColumn(5).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+    @Override
+    public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        
+        if (value != null) {
+            String status = value.toString();
+            setHorizontalAlignment(javax.swing.JLabel.CENTER);
+            
+            if (status.equalsIgnoreCase("Batal")) {
+                c.setForeground(java.awt.Color.RED); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            } else if (status.equalsIgnoreCase("Pending")) {
+                c.setForeground(new java.awt.Color(220, 150, 0)); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            } else {
+                c.setForeground(new java.awt.Color(0, 153, 0)); 
+                setFont(getFont().deriveFont(java.awt.Font.BOLD));
+            }
+        }
+        return c;
+    }
+});
+    
+    
     tampilkanData();
     com.alambuahsegar.config.Session.setSidebarInfo(jLabelTanggal, jLabelUser);
     
@@ -55,7 +80,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
     });
 }
     
-            public void tampilkanData() {
+    public void tampilkanData() {
     String metode = cmbFilterMetode.getSelectedItem().toString(); 
     String status = cmbFilterStatus.getSelectedItem().toString(); 
 
@@ -82,28 +107,38 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         model.setRowCount(0);
 
         while (res.next()) {
-        double subTotal = res.getDouble("total_belanja");
-        totalNominal += subTotal; 
+            double subTotal = res.getDouble("total_belanja");
+            totalNominal += subTotal; 
 
-        String metodeTrx = res.getString("metode_pembayaran");
-        if (metodeTrx == null || metodeTrx.trim().isEmpty()) {
-        metodeTrx = "Tunai";
+            // Cek metode pembayaran
+            String metodeTrx = res.getString("metode_pembayaran");
+            if (metodeTrx == null || metodeTrx.trim().isEmpty()) {
+                metodeTrx = "Tunai";
+            }
+
+            // Cek status pesanan agar tampil sesuai database (Batal / Pending / Selesai)
+            String statusDb = res.getString("status_pesanan");
+            String statusTrx;
+
+            if (statusDb == null || statusDb.trim().isEmpty()) {
+                statusTrx = "Selesai";
+            } else if (statusDb.equalsIgnoreCase("Batal")) {
+                statusTrx = "Batal";
+            } else if (statusDb.equalsIgnoreCase("Pending")) {
+                statusTrx = "Pending";
+            } else {
+                statusTrx = statusDb; 
+            }
+
+            model.addRow(new Object[]{
+                res.getString("tanggal_transaksi"), 
+                res.getString("no_struk"),         
+                res.getString("nama_pengguna"),    
+                String.format("%,.0f", res.getDouble("total_belanja")), 
+                metodeTrx, 
+                statusTrx  
+            });
         }
-
-        String statusTrx = res.getString("status_pesanan");
-        if (statusTrx == null || statusTrx.trim().isEmpty()) {
-        statusTrx = "Selesai";
-        }
-
-    model.addRow(new Object[]{
-        res.getString("tanggal_transaksi"), 
-        res.getString("no_struk"),         
-        res.getString("nama_pengguna"),    
-        String.format("%,.0f", res.getDouble("total_belanja")), 
-        metodeTrx, 
-        statusTrx  
-    });
-}
 
     } catch (Exception e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
@@ -130,34 +165,34 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         lblTotalOmset.setText("Rp " + formattedRupiah);
         lblTotalTransaksi.setText(jumlTrx + " Struk");
 
-        // 2. Peringatan Stok (Sinkron dengan logika perbandingan rak vs sistem)
+        // 2. Peringatan Stok
         String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk";
         java.sql.ResultSet rsStokData = stmt.executeQuery(sqlStok);
-        
+
         int totalHabis = 0;
         int totalSelisih = 0;
         int totalMenipis = 0;
-        
+
         while (rsStokData.next()) {
-            int stokRak = rsStokData.getInt("stok_di_rak");
-            int stokSistem = rsStokData.getInt("total_stok_sistem");
-            
-            if (stokRak == 0 && stokSistem == 0) {
-                totalHabis++;
-            } else if (stokRak != stokSistem) {
-                totalSelisih++;
-            } else if (stokRak <= 5) {
-                totalMenipis++;
-            }
+        int stokRak = rsStokData.getInt("stok_di_rak");
+        int stokSistem = rsStokData.getInt("total_stok_sistem");
+    
+        if (stokRak == 0 && stokSistem == 0) {
+        totalHabis++;
+        } else if (stokRak != stokSistem) {
+        totalSelisih++;
+        } else if (stokRak <= 5) {
+        totalMenipis++;
         }
-        
-        int totalPeringatan = totalHabis + totalSelisih + totalMenipis;
-        
-        // Label angka total di tengah kartu
-        lblPeringatan.setText(totalPeringatan + " Produk");
-        
-        // Label rincian subtitle di bawah kartu
-        lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " + totalMenipis + " menipis");
+    }
+
+    int totalPeringatan = totalHabis + totalSelisih + totalMenipis;
+
+    // Bagian tengah (menampilkan angka total produk)
+    lblPeringatan.setText(totalPeringatan + " Produk");
+
+    // Bagian bawah / subtitle (menampilkan rincian detail)
+    lblSubPeringatan.setText(totalHabis + " habis, " + totalSelisih + " selisih, " + totalMenipis + " menipis");
 
         // 3. Promo Aktif
         String sqlPromo = "SELECT COUNT(*) AS jml_promo FROM produk WHERE harga_diskon > 0";
@@ -193,19 +228,34 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             double total = rsTable.getDouble("total_belanja");
             String metode = rsTable.getString("metode_pembayaran");
             if (metode == null || metode.isEmpty()) {
-            metode = "Tunai"; // Fallback jika data lamanya kosong/null
+            metode = "Tunai"; 
             }
-
-            model.addRow(new Object[]{
-                tanggal,
-                kodeTrx,
-                kasir,
-                "Rp " + String.format("%,.0f", total).replace(",", "."),
-                metode,
-                "Berhasil"
-            });
-        }
             
+            String statusDb = rsTable.getString("status_pesanan");
+            String statusTampil = "Berhasil";
+
+    if (statusDb != null) {
+    if (statusDb.equalsIgnoreCase("Batal")) {
+        statusTampil = "Batal"; // Atau "Gagal" sesuai selera kamu
+    } else if (statusDb.equalsIgnoreCase("Pending")) {
+        statusTampil = "Pending";
+    } else if (statusDb.equalsIgnoreCase("Selesai")) {
+        statusTampil = "Berhasil";
+    } else {
+        statusTampil = statusDb;
+    }
+}
+
+model.addRow(new Object[]{
+    tanggal,
+    kodeTrx,
+    kasir,
+    "Rp " + String.format("%,.0f", total).replace(",", "."),
+    metode,
+    statusTampil
+});
+        }
+        
         tblRiwayat.setRowHeight(35); 
         tblRiwayat.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
         tblRiwayat.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
@@ -213,7 +263,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         
     } catch (Exception e) {
         e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data laporan manager: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data tabel: " + e.getMessage());
     }
 }
 
