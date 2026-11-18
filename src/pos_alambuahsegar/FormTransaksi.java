@@ -1343,17 +1343,26 @@ public class FormTransaksi extends javax.swing.JFrame {
         double kembalian = 0;
 
         if (metodePembayaran.equalsIgnoreCase("Tunai")) {
-        uangBayar = Double.parseDouble(txtBayar.getText().replaceAll("[^0-9]", ""));
-        kembalian = uangBayar - totalBelanja;
+            uangBayar = Double.parseDouble(txtBayar.getText().replaceAll("[^0-9]", ""));
+            kembalian = uangBayar - totalBelanja;
         } else {
-        uangBayar = totalBelanja;
-        kembalian = 0;
+            uangBayar = totalBelanja;
+            kembalian = 0;
+        }
+
+        // --- TAMBAHAN BARU: Tentukan Status Transaksi Berdasarkan Metode Pembayaran ---
+        String statusPesanan = "";
+        if (metodePembayaran.equalsIgnoreCase("Tunai")) {
+            statusPesanan = "Berhasil";
+        } else {
+            statusPesanan = "Pending"; // Untuk Transfer / QRIS otomatis jadi Pending
         }
         
         // AMBIL ID USER YANG SEDANG LOGIN SECARA DINAMIS
         int idUser = com.alambuahsegar.config.Session.id_pengguna;
 
-        String sqlTrx = "INSERT INTO transaksi (no_struk, tanggal_transaksi, total_belanja, id_pengguna, uang_bayar, kembalian, metode_pembayaran) VALUES (?, NOW(), ?, ?, ?, ?, ?)";
+        // --- QUERY INSERT DISESUAIKAN DENGAN MENAMBAHKAN KOLOM STATUS ---
+        String sqlTrx = "INSERT INTO transaksi (no_struk, tanggal_transaksi, total_belanja, id_pengguna, uang_bayar, kembalian, metode_pembayaran, status_pesanan) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)";
         java.sql.PreparedStatement pstTrx = conn.prepareStatement(sqlTrx, java.sql.Statement.RETURN_GENERATED_KEYS);
         pstTrx.setString(1, noStruk);
         pstTrx.setDouble(2, totalBelanja);
@@ -1361,6 +1370,7 @@ public class FormTransaksi extends javax.swing.JFrame {
         pstTrx.setDouble(4, uangBayar);
         pstTrx.setDouble(5, kembalian);
         pstTrx.setString(6, metodePembayaran);
+        pstTrx.setString(7, statusPesanan); // <-- Memasukkan status (Berhasil / Pending)
         pstTrx.executeUpdate();
 
         // Ambil ID transaksi yang baru saja dibuat
@@ -1411,12 +1421,12 @@ public class FormTransaksi extends javax.swing.JFrame {
         String sqlLog = "INSERT INTO riwayat_aktivitas (id_pengguna, waktu_aktivitas, deskripsi_aktivitas) VALUES (?, NOW(), ?)";
         java.sql.PreparedStatement pstLog = conn.prepareStatement(sqlLog);
         pstLog.setInt(1, idUser);
-        pstLog.setString(2, "Melakukan transaksi penjualan baru dengan nomor struk: " + noStruk);
+        pstLog.setString(2, "Melakukan transaksi penjualan baru dengan nomor struk: " + noStruk + " (Status: " + statusPesanan + ")");
         pstLog.executeUpdate();
 
         // 5. TAMPILKAN KEMBALIAN DAN PESAN SUKSES DULUAN (SESUAI LOGIKA KASIR)
         txtKembalian.setText(String.format("%,.0f", kembalian));
-        javax.swing.JOptionPane.showMessageDialog(this, "Transaksi Berhasil Disimpan!\nUang Kembalian: Rp " + String.format("%,.0f", kembalian));
+        javax.swing.JOptionPane.showMessageDialog(this, "Transaksi Berhasil Disimpan!\nStatus: " + statusPesanan + "\nUang Kembalian: Rp " + String.format("%,.0f", kembalian));
         
         // 6. BARU SETELAH DI-KLIK OK, PROSES CETAK STRUK BERJALAN
         String tanggalTrx = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
