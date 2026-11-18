@@ -18,7 +18,7 @@ public class DatabaseConnection {
                 String driver = "com.mysql.cj.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/db_pos_alam_buah_segar";
                 String user = "root";
-                String password = ""; // Sesuaikan password XAMPP jika ada
+                String password = "";
 
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);

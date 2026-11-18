@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package pos_alambuahsegar;
+import com.alambuahsegar.config.DatabaseConnection;
 import pos_alambuahsegar.GrafikLaporanPanel;
 
 /**
@@ -16,6 +17,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
      */
     public FormLaporanPenjualanManager() {
     initComponents();
+    tampilkanData();
     com.alambuahsegar.config.Session.setSidebarInfo(jLabelTanggal, jLabelUser);
     
     // 1. Load data transaksi agar tabel terisi otomatis
@@ -53,6 +55,60 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
     });
 }
     
+            public void tampilkanData() {
+    String metode = cmbFilterMetode.getSelectedItem().toString(); 
+    String status = cmbFilterStatus.getSelectedItem().toString(); 
+
+    String sql = "SELECT t.tanggal_transaksi, t.no_struk, p.nama_pengguna, t.total_belanja, t.metode_pembayaran, t.status_pesanan " +
+                 "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna WHERE 1=1";
+
+    // Hanya filter jika dipilih selain teks default / "Semua"
+    if (!metode.equalsIgnoreCase("Semua") && !metode.equalsIgnoreCase("Filter Metode")) {
+        sql += " AND t.metode_pembayaran = '" + metode + "'";
+    }
+
+    if (!status.equalsIgnoreCase("Semua") && !status.equalsIgnoreCase("Filter Status")) {
+        sql += " AND t.status_pesanan = '" + status + "'";
+    }
+
+    double totalNominal = 0; 
+
+    try {
+        java.sql.Connection conn = DatabaseConnection.getConnection(); 
+        java.sql.Statement stm = conn.createStatement();
+        java.sql.ResultSet res = stm.executeQuery(sql);
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblRiwayat.getModel(); 
+        model.setRowCount(0);
+
+        while (res.next()) {
+        double subTotal = res.getDouble("total_belanja");
+        totalNominal += subTotal; 
+
+        String metodeTrx = res.getString("metode_pembayaran");
+        if (metodeTrx == null || metodeTrx.trim().isEmpty()) {
+        metodeTrx = "Tunai";
+        }
+
+        String statusTrx = res.getString("status_pesanan");
+        if (statusTrx == null || statusTrx.trim().isEmpty()) {
+        statusTrx = "Selesai";
+        }
+
+    model.addRow(new Object[]{
+        res.getString("tanggal_transaksi"), 
+        res.getString("no_struk"),         
+        res.getString("nama_pengguna"),    
+        String.format("%,.0f", res.getDouble("total_belanja")), 
+        metodeTrx, 
+        statusTrx  
+    });
+}
+
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+    }
+}
     
    public void loadDataLaporan() {
     try {
@@ -210,6 +266,8 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         lblPromo = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
+        cmbFilterStatus = new javax.swing.JComboBox<>();
+        cmbFilterMetode = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -305,6 +363,8 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 750));
 
+        btnExportExcel.setBackground(new java.awt.Color(3, 159, 25));
+        btnExportExcel.setForeground(new java.awt.Color(255, 255, 255));
         btnExportExcel.setText("Expor Excel");
         btnExportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -449,6 +509,32 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, 190, 90));
 
+        cmbFilterStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filter Status", "Semua", "Selesai", "Pending", "Batal" }));
+        cmbFilterStatus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbFilterStatusItemStateChanged(evt);
+            }
+        });
+        cmbFilterStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFilterStatusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbFilterStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 120, 110, -1));
+
+        cmbFilterMetode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filter Metode", "Semua", "Tunai", "Qris", "Transfer" }));
+        cmbFilterMetode.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbFilterMetodeItemStateChanged(evt);
+            }
+        });
+        cmbFilterMetode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFilterMetodeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbFilterMetode, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 120, 110, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -459,7 +545,6 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
 
     private void btnLaporanPenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaporanPenjualanActionPerformed
     try {
-        // 1. Wajib Pilih Tanggal Periode Cetak di Awal
         String tglMulai = javax.swing.JOptionPane.showInputDialog(this, 
             "Masukkan Tanggal Awal Laporan (Format: YYYY-MM-DD, contoh: 2026-11-01):", 
             "Filter Tanggal Cetak", 
@@ -472,23 +557,42 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             javax.swing.JOptionPane.QUESTION_MESSAGE);
         if (tglSelesai == null || tglSelesai.trim().isEmpty()) { return; }
 
-        // 2. Buat file HTML sementara untuk cetak laporan profesional
+        String metodeFilter = cmbFilterMetode.getSelectedItem().toString();
+        String statusFilter = cmbFilterStatus.getSelectedItem().toString();
+
         java.io.File htmlFile = new java.io.File(System.getProperty("java.io.tmpdir") + "Cetak_Laporan_AlamBuahSegar.html");
         java.io.FileWriter writer = new java.io.FileWriter(htmlFile);
         
         java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
         
-        // Query Data Transaksi Utama (Ditambah t.metode_pembayaran)
-        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
+        String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, t.status_pesanan, p.nama_pengguna " +
                         "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
-                        "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
-                        "ORDER BY t.tanggal_transaksi DESC";
+                        "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ?";
+        
+        boolean filterMetode = !metodeFilter.equalsIgnoreCase("Semua");
+        boolean filterStatus = !statusFilter.equalsIgnoreCase("Semua");
+
+        if (filterMetode) {
+            sqlTrx += " AND t.metode_pembayaran = ?";
+        }
+        if (filterStatus) {
+            sqlTrx += " AND t.status_pesanan = ?";
+        }
+        sqlTrx += " ORDER BY t.tanggal_transaksi DESC";
+
         java.sql.PreparedStatement pstTrx = conn.prepareStatement(sqlTrx);
         pstTrx.setString(1, tglMulai);
         pstTrx.setString(2, tglSelesai);
+
+        int paramIndex = 3;
+        if (filterMetode) {
+            pstTrx.setString(paramIndex++, metodeFilter);
+        }
+        if (filterStatus) {
+            pstTrx.setString(paramIndex++, statusFilter);
+        }
         java.sql.ResultSet rsTrx = pstTrx.executeQuery();
 
-        // Query Data Produk Terlaris
         String sqlTop = "SELECT p.nama_produk, SUM(dt.qyt) AS total_terjual, SUM(dt.subtotal) AS total_pendapatan " +
                         "FROM detail_transaksi dt JOIN produk p ON dt.id_produk = p.id_produk " +
                         "JOIN transaksi t ON dt.id_transaksi = t.id_transaksi " + 
@@ -500,7 +604,6 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         pstTop.setString(2, tglSelesai);
         java.sql.ResultSet rsTop = pstTop.executeQuery();
 
-        // Format HTML dengan Header Hijau (#2e7d32) & Logo
         writer.write("<html>\n<head>\n<style>\n");
         writer.write("  body { font-family: Arial, sans-serif; margin: 30px; }\n");
         writer.write("  .header { font-size: 20pt; font-weight: bold; color: #2e7d32; text-align: center; }\n");
@@ -509,6 +612,10 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         writer.write("  table { border-collapse: collapse; width: 100%; margin-top: 10px; }\n");
         writer.write("  th { background-color: #2e7d32; color: white; border: 1px solid #ddd; padding: 8px; text-align: center; }\n");
         writer.write("  td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n");
+        writer.write("  @page { size: A4; margin: 15mm; ");
+        writer.write("    @bottom-left { content: 'Alam Buah Segar'; font-size: 9pt; color: #555; } ");
+        writer.write("    @bottom-right { content: 'Page ' counter(page); font-size: 9pt; color: #555; } ");
+        writer.write("  }\n");
         writer.write("</style>\n</head>\n<body>\n");
 
         // Kop Surat dengan Logo ABS
@@ -523,9 +630,9 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         writer.write("</tr>\n</table>\n");
         writer.write("<hr style='border: 1px solid #2e7d32; margin-top: 8px;'>\n");
 
-        // Bagian 1: Tabel Riwayat Transaksi
+        // Bagian 1: Tabel Riwayat Transaksi (Menampilkan Info Filter Aktif)
         writer.write("<div class='title'>LAPORAN RIWAYAT PENJUALAN</div>\n");
-        writer.write("<div class='sub-header' style='text-align: left; font-weight: bold;'>Periode: " + tglMulai + " s/d " + tglSelesai + "</div>\n");
+        writer.write("<div class='sub-header' style='text-align: left; font-weight: bold;'>Periode: " + tglMulai + " s/d " + tglSelesai + " | Filter Metode: " + metodeFilter + " | Filter Status: " + statusFilter + "</div>\n");
         
         writer.write("<table>\n<tr>\n");
         writer.write("  <th style='background-color: #2e7d32; color: white;'>No Struk</th>\n");
@@ -534,6 +641,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         writer.write("  <th style='background-color: #2e7d32; color: white;'>Uang Bayar (Rp)</th>\n");
         writer.write("  <th style='background-color: #2e7d32; color: white;'>Kembalian (Rp)</th>\n");
         writer.write("  <th style='background-color: #2e7d32; color: white;'>Metode</th>\n");
+        writer.write("  <th style='background-color: #2e7d32; color: white;'>Status</th>\n");
         writer.write("  <th style='background-color: #2e7d32; color: white;'>Kasir</th>\n");
         writer.write("</tr>\n");
 
@@ -541,6 +649,10 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             String metode = rsTrx.getString("metode_pembayaran");
             if (metode == null || metode.isEmpty()) {
                 metode = "Tunai";
+            }
+            String status = rsTrx.getString("status_pesanan");
+            if (status == null || status.isEmpty()) {
+                status = "Selesai";
             }
 
             writer.write("<tr>\n");
@@ -550,6 +662,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
             writer.write("  <td>" + metode + "</td>\n");
+            writer.write("  <td>" + status + "</td>\n");
             writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
             writer.write("</tr>\n");
         }
@@ -571,7 +684,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.write("<tr>\n");
             writer.write("  <td style='text-align: center;'>" + (no++) + "</td>\n");
             writer.write("  <td>" + rsTop.getString("nama_produk") + "</td>\n");
-            writer.write("  <td style='text-align: center;'>" + rsTop.getInt("total_terjual") + " pcs</td>\n");
+            writer.write("  <td style='text-align: center;'>" + rsTop.getInt("total_terjual") + " kg</td>\n");
             writer.write("  <td>Rp " + String.format("%,.0f", rsTop.getDouble("total_pendapatan")) + "</td>\n");
             writer.write("</tr>\n");
         }
@@ -589,7 +702,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             java.awt.Desktop.getDesktop().browse(htmlFile.toURI());
         }
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Berhasil menyiapkan cetak laporan periode " + tglMulai + " s/d " + tglSelesai + "!");
+        javax.swing.JOptionPane.showMessageDialog(this, "Berhasil menyiapkan cetak laporan sesuai filter!");
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -617,6 +730,10 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             javax.swing.JOptionPane.QUESTION_MESSAGE);
         if (tglSelesai == null || tglSelesai.trim().isEmpty()) { return; }
 
+        // Ambil nilai filter terbaru dari ComboBox di form
+        String metodeFilter = cmbFilterMetode.getSelectedItem().toString();
+        String statusFilter = cmbFilterStatus.getSelectedItem().toString();
+
         // 2. Jendela Pilih Folder Penyimpanan Excel
         javax.swing.JFileChooser fileChooser = new javax.swing.JFileChooser();
         fileChooser.setDialogTitle("Simpan Laporan Penjualan ke Excel");
@@ -634,14 +751,33 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             java.io.FileWriter writer = new java.io.FileWriter(filePath);
             java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
             
-            // Query Data Transaksi Utama dengan Filter Tanggal (Ditambah t.metode_pembayaran)
-            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, p.nama_pengguna " +
+            // Query Data Transaksi Utama dengan Filter Tanggal + ComboBox Metode & Status
+            String sqlTrx = "SELECT t.no_struk, t.tanggal_transaksi, t.total_belanja, t.uang_bayar, t.kembalian, t.metode_pembayaran, t.status_pesanan, p.nama_pengguna " +
                             "FROM transaksi t JOIN pengguna p ON t.id_pengguna = p.id_pengguna " +
-                            "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ? " +
-                            "ORDER BY t.tanggal_transaksi DESC";
+                            "WHERE DATE(t.tanggal_transaksi) BETWEEN ? AND ?";
+            
+            boolean filterMetode = !metodeFilter.equalsIgnoreCase("Semua");
+            boolean filterStatus = !statusFilter.equalsIgnoreCase("Semua");
+
+            if (filterMetode) {
+                sqlTrx += " AND t.metode_pembayaran = ?";
+            }
+            if (filterStatus) {
+                sqlTrx += " AND t.status_pesanan = ?";
+            }
+            sqlTrx += " ORDER BY t.tanggal_transaksi DESC";
+
             java.sql.PreparedStatement pstTrx = conn.prepareStatement(sqlTrx);
             pstTrx.setString(1, tglMulai);
             pstTrx.setString(2, tglSelesai);
+
+            int paramIndex = 3;
+            if (filterMetode) {
+                pstTrx.setString(paramIndex++, metodeFilter);
+            }
+            if (filterStatus) {
+                pstTrx.setString(paramIndex++, statusFilter);
+            }
             java.sql.ResultSet rsTrx = pstTrx.executeQuery();
 
             // Query Data Produk Terlaris dengan Filter Tanggal (Struktur kolom sesuai database)
@@ -679,9 +815,9 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.write("</tr>\n</table>\n");
             writer.write("<hr style='border: 1px solid #2e7d32; margin-top: 8px;'>\n");
 
-            // Bagian 1: Tabel Riwayat Transaksi
+            // Bagian 1: Tabel Riwayat Transaksi (Ditambahkan Info Filter)
             writer.write("<div class='title'>LAPORAN PENJUALAN</div>\n");
-            writer.write("<div class='sub-header' style='text-align: left; font-weight: bold;'>Periode: " + tglMulai + " s/d " + tglSelesai + "</div>\n");
+            writer.write("<div class='sub-header' style='text-align: left; font-weight: bold;'>Periode: " + tglMulai + " s/d " + tglSelesai + " | Filter Metode: " + metodeFilter + " | Filter Status: " + statusFilter + "</div>\n");
             writer.write("<div class='sub-header' style='text-align: left;'>Tanggal Export: " + java.time.LocalDate.now() + "</div>\n");
 
             writer.write("<table>\n<tr>\n");
@@ -691,6 +827,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.write("  <th style='background-color: #2e7d32; color: white;'>Uang Bayar (Rp)</th>\n");
             writer.write("  <th style='background-color: #2e7d32; color: white;'>Kembalian (Rp)</th>\n");
             writer.write("  <th style='background-color: #2e7d32; color: white;'>Metode Pembayaran</th>\n");
+            writer.write("  <th style='background-color: #2e7d32; color: white;'>Status Pesanan</th>\n");
             writer.write("  <th style='background-color: #2e7d32; color: white;'>Kasir</th>\n");
             writer.write("</tr>\n");
 
@@ -698,6 +835,10 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
                 String metode = rsTrx.getString("metode_pembayaran");
                 if (metode == null || metode.isEmpty()) {
                     metode = "Tunai";
+                }
+                String status = rsTrx.getString("status_pesanan");
+                if (status == null || status.isEmpty()) {
+                    status = "Selesai";
                 }
 
                 writer.write("<tr>\n");
@@ -707,6 +848,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("uang_bayar")) + "</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTrx.getDouble("kembalian")) + "</td>\n");
                 writer.write("  <td>" + metode + "</td>\n");
+                writer.write("  <td>" + status + "</td>\n");
                 writer.write("  <td>" + rsTrx.getString("nama_pengguna") + "</td>\n");
                 writer.write("</tr>\n");
             }
@@ -728,7 +870,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
                 writer.write("<tr>\n");
                 writer.write("  <td style='text-align: center;'>" + (no++) + "</td>\n");
                 writer.write("  <td>" + rsTop.getString("nama_produk") + "</td>\n");
-                writer.write("  <td style='text-align: center;'>" + rsTop.getInt("total_terjual") + " pcs</td>\n");
+                writer.write("  <td style='text-align: center;'>" + rsTop.getInt("total_terjual") + " kg</td>\n");
                 writer.write("  <td>Rp " + String.format("%,.0f", rsTop.getDouble("total_pendapatan")) + "</td>\n");
                 writer.write("</tr>\n");
             }
@@ -737,7 +879,7 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
             writer.flush();
             writer.close();
 
-            javax.swing.JOptionPane.showMessageDialog(this, "Berhasil! Laporan periode " + tglMulai + " s/d " + tglSelesai + " berhasil diexport ke Excel.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Berhasil! Laporan periode " + tglMulai + " s/d " + tglSelesai + " berhasil diexport ke Excel sesuai filter.");
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -758,6 +900,22 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
         new FormLogin().setVisible(true); // Kembali ke halaman login
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void cmbFilterStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilterStatusActionPerformed
+        tampilkanData();
+    }//GEN-LAST:event_cmbFilterStatusActionPerformed
+
+    private void cmbFilterMetodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilterMetodeActionPerformed
+        tampilkanData();
+    }//GEN-LAST:event_cmbFilterMetodeActionPerformed
+
+    private void cmbFilterMetodeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFilterMetodeItemStateChanged
+    tampilkanData();
+    }//GEN-LAST:event_cmbFilterMetodeItemStateChanged
+
+    private void cmbFilterStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFilterStatusItemStateChanged
+    tampilkanData();
+    }//GEN-LAST:event_cmbFilterStatusItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -802,6 +960,8 @@ public class FormLaporanPenjualanManager extends javax.swing.JFrame {
     private javax.swing.JButton btnExportExcel;
     private javax.swing.JButton btnLaporanPenjualan;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JComboBox<String> cmbFilterMetode;
+    private javax.swing.JComboBox<String> cmbFilterStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
