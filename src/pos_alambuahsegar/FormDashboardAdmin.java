@@ -208,7 +208,7 @@ private void gantiPeringatanPromo() {
             } else if (stokRak != stokSistem) {
                 status = "Selisih";
                 totalSelisih++;
-            } else if (stokRak <= 5) {
+            } else if (stokRak > 0 && stokRak <= 10) {
                 status = "Menipis";
                 totalMenipis++;
             } else {

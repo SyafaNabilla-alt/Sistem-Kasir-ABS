@@ -15,6 +15,8 @@ public class FormTransaksi extends javax.swing.JFrame {
      */
     public FormTransaksi() {
     initComponents();
+    aktifkanEditQtyTabel();
+    aktifkanInputTotalItem();
     int maxY = 0;
     for (java.awt.Component comp : pnlIsiBuah.getComponents()) {
     int bottomY = comp.getY() + comp.getHeight();
@@ -56,18 +58,303 @@ public class FormTransaksi extends javax.swing.JFrame {
     });
     }
     
+    private boolean sedangUpdateTotalItem = false;
+
+private void aktifkanInputTotalItem() {
+    java.awt.event.ActionListener aksiEnter = new java.awt.event.ActionListener() {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            terapkanQtyDariTotalItem();
+        }
+    };
+
+    txtTotalItem.removeActionListener(aksiEnter);
+    txtTotalItem.addActionListener(aksiEnter);
+
+    txtTotalItem.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyPressed(java.awt.event.KeyEvent e) {
+            if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+                terapkanQtyDariTotalItem();
+            }
+        }
+    });
+
+    txtTotalItem.addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+        public void focusLost(java.awt.event.FocusEvent e) {
+            terapkanQtyDariTotalItem();
+        }
+    });
+}
+
+private void terapkanQtyDariTotalItem() {
+    if (sedangUpdateTotalItem) return;
+
+    javax.swing.table.DefaultTableModel modelTabel = (javax.swing.table.DefaultTableModel) tblKeranjang.getModel();
+    if (modelTabel.getRowCount() == 0) return;
+
+    String teksAngka = txtTotalItem.getText().replaceAll("[^0-9]", "").trim();
+    if (teksAngka.isEmpty()) return;
+
+    sedangUpdateTotalItem = true;
+    try {
+        int qtyBaru = Integer.parseInt(teksAngka);
+        if (qtyBaru <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Jumlah item minimal 1!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            qtyBaru = 1;
+        }
+
+        int barisTarget = tblKeranjang.getSelectedRow();
+        if (barisTarget < 0 || barisTarget >= modelTabel.getRowCount()) {
+            barisTarget = modelTabel.getRowCount() - 1;
+        }
+
+        String namaProduk = modelTabel.getValueAt(barisTarget, 1).toString();
+        int hargaAsli = Integer.parseInt(modelTabel.getValueAt(barisTarget, 3).toString().replaceAll("[^0-9]", ""));
+        int hargaDiskon = Integer.parseInt(modelTabel.getValueAt(barisTarget, 4).toString().replaceAll("[^0-9]", ""));
+
+        java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
+        String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk WHERE nama_produk = ?";
+        java.sql.PreparedStatement pstStok = conn.prepareStatement(sqlStok);
+        pstStok.setString(1, namaProduk);
+        java.sql.ResultSet rsStok = pstStok.executeQuery();
+
+        if (rsStok.next()) {
+            int stokRak = rsStok.getInt("stok_di_rak");
+            int stokSistem = rsStok.getInt("total_stok_sistem");
+            int stokTersedia = Math.min(stokRak, stokSistem);
+
+            if (qtyBaru > stokTersedia) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Stok produk '" + namaProduk + "' tidak mencukupi!\nStok di sistem saat ini: " + stokSistem + "\nStok di rak saat ini: " + stokRak,
+                    "Peringatan Stok",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                qtyBaru = Math.max(1, stokTersedia);
+            }
+        }
+
+        int hargaBersih = hargaAsli - hargaDiskon;
+        int subtotalBaru = qtyBaru * hargaBersih;
+
+        modelTabel.setValueAt(qtyBaru, barisTarget, 2);
+        modelTabel.setValueAt(subtotalBaru, barisTarget, 5);
+
+        int totalItemBaru = 0;
+        long totalHargaBaru = 0;
+        for (int i = 0; i < modelTabel.getRowCount(); i++) {
+            int q = Integer.parseInt(modelTabel.getValueAt(i, 2).toString().replaceAll("[^0-9]", ""));
+            long sub = Long.parseLong(modelTabel.getValueAt(i, 5).toString().replaceAll("[^0-9]", ""));
+            totalItemBaru += q;
+            totalHargaBaru += sub;
+        }
+
+        txtTotalItem.setText(String.valueOf(totalItemBaru));
+        txtTotalHarga.setText("Rp " + totalHargaBaru);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        javax.swing.JOptionPane.showMessageDialog(this, "Gagal memperbarui jumlah item: " + ex.getMessage());
+    } finally {
+        sedangUpdateTotalItem = false;
+    }
+}
+
+    private void terapkanQtyDariTotalItem(javax.swing.table.DefaultTableModel modelTabel) {
+    if (sedangUpdateTotalItem) return;
+    if (modelTabel.getRowCount() == 0) return;
+
+    String teksInput = txtTotalItem.getText().trim();
+    if (teksInput.isEmpty()) return;
+
+    sedangUpdateTotalItem = true;
+    try {
+        int qtyBaru = Integer.parseInt(teksInput.replaceAll("[^0-9]", ""));
+        if (qtyBaru <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Jumlah item minimal 1!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            qtyBaru = 1;
+        }
+
+        int barisTarget = tblKeranjang.getSelectedRow();
+        if (barisTarget < 0 || barisTarget >= modelTabel.getRowCount()) {
+            barisTarget = modelTabel.getRowCount() - 1;
+        }
+
+        String namaProduk = modelTabel.getValueAt(barisTarget, 1).toString();
+        int hargaAsli = Integer.parseInt(modelTabel.getValueAt(barisTarget, 3).toString().replaceAll("[^0-9]", ""));
+        int hargaDiskon = Integer.parseInt(modelTabel.getValueAt(barisTarget, 4).toString().replaceAll("[^0-9]", ""));
+
+        // Sinkronkan dengan stok di rak dan stok sistem di database
+        java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
+        String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk WHERE nama_produk = ?";
+        java.sql.PreparedStatement pstStok = conn.prepareStatement(sqlStok);
+        pstStok.setString(1, namaProduk);
+        java.sql.ResultSet rsStok = pstStok.executeQuery();
+
+        if (rsStok.next()) {
+            int stokRak = rsStok.getInt("stok_di_rak");
+            int stokSistem = rsStok.getInt("total_stok_sistem");
+            int stokTersedia = Math.min(stokRak, stokSistem);
+
+            if (qtyBaru > stokTersedia) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Stok produk '" + namaProduk + "' tidak mencukupi!\nStok di sistem saat ini: " + stokSistem + "\nStok di rak saat ini: " + stokRak,
+                    "Peringatan Stok",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                qtyBaru = Math.max(1, stokTersedia);
+            }
+        }
+
+        int hargaBersih = hargaAsli - hargaDiskon;
+        int subtotalBaru = qtyBaru * hargaBersih;
+
+        modelTabel.setValueAt(qtyBaru, barisTarget, 2);
+        modelTabel.setValueAt(subtotalBaru, barisTarget, 5);
+
+        // Hitung ulang total item & total harga seluruh keranjang
+        int totalItemBaru = 0;
+        long totalHargaBaru = 0;
+        for (int i = 0; i < modelTabel.getRowCount(); i++) {
+            int q = Integer.parseInt(modelTabel.getValueAt(i, 2).toString().replaceAll("[^0-9]", ""));
+            long sub = Long.parseLong(modelTabel.getValueAt(i, 5).toString().replaceAll("[^0-9]", ""));
+            totalItemBaru += q;
+            totalHargaBaru += sub;
+        }
+
+        txtTotalItem.setText(String.valueOf(totalItemBaru));
+        txtTotalHarga.setText("Rp " + totalHargaBaru);
+        hitungTotalBelanja();
+
+    } catch (NumberFormatException ex) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Jumlah item harus berupa angka bulat!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    } finally {
+        sedangUpdateTotalItem = false;
+    }
+}
     
-    public void cetakStrukKasir(String kodeTrx, String tanggal, String kasir, javax.swing.table.TableModel modelItem, double totalBelanja, double bayar, double kembalian) {
+    private boolean sedangUpdateQty = false;
+
+    private void perbaruiRingkasanKeranjang(javax.swing.table.DefaultTableModel model) {
+    int totalItem = 0;
+    long totalHarga = 0;
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        int qtyBaris = Integer.parseInt(model.getValueAt(i, 2).toString().replaceAll("[^0-9]", ""));
+        long subtotalBaris = Long.parseLong(model.getValueAt(i, 5).toString().replaceAll("[^0-9]", ""));
+        totalItem += qtyBaris;
+        totalHarga += subtotalBaris;
+    }
+
+    txtTotalItem.setText(String.valueOf(totalItem));
+    txtTotalHarga.setText("Rp " + totalHarga);
+
+    hitungTotalBelanja();
+}
+
+private void aktifkanEditQtyTabel() {
+    tblKeranjang.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+
+    javax.swing.table.DefaultTableModel modelLama = (javax.swing.table.DefaultTableModel) tblKeranjang.getModel();
+
+    java.util.Vector<String> namaKolom = new java.util.Vector<>();
+    for (int c = 0; c < modelLama.getColumnCount(); c++) {
+        namaKolom.add(modelLama.getColumnName(c));
+    }
+
+    javax.swing.table.DefaultTableModel modelBaru = new javax.swing.table.DefaultTableModel(namaKolom, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return column == 2;
+        }
+    };
+
+    tblKeranjang.setModel(modelBaru);
+
+    modelBaru.addTableModelListener(new javax.swing.event.TableModelListener() {
+        @Override
+        public void tableChanged(javax.swing.event.TableModelEvent e) {
+            if (sedangUpdateQty) return;
+            if (e.getType() != javax.swing.event.TableModelEvent.UPDATE) return;
+            if (e.getColumn() != 2) return;
+
+            int row = e.getFirstRow();
+            if (row < 0 || row >= modelBaru.getRowCount()) return;
+
+            sedangUpdateQty = true;
+            try {
+                String inputQty = modelBaru.getValueAt(row, 2).toString().trim();
+                int qtyBaru = Integer.parseInt(inputQty);
+
+                if (qtyBaru <= 0) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Jumlah QTY minimal 1!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    qtyBaru = 1;
+                }
+
+                String namaProduk = modelBaru.getValueAt(row, 1).toString();
+                int hargaAsli = Integer.parseInt(modelBaru.getValueAt(row, 3).toString().replaceAll("[^0-9]", ""));
+                int hargaDiskon = Integer.parseInt(modelBaru.getValueAt(row, 4).toString().replaceAll("[^0-9]", ""));
+
+                java.sql.Connection conn = com.alambuahsegar.config.DatabaseConnection.getConnection();
+                String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk WHERE nama_produk = ?";
+                java.sql.PreparedStatement pstStok = conn.prepareStatement(sqlStok);
+                pstStok.setString(1, namaProduk);
+                java.sql.ResultSet rsStok = pstStok.executeQuery();
+
+                if (rsStok.next()) {
+                    int stokRak = rsStok.getInt("stok_di_rak");
+                    int stokSistem = rsStok.getInt("total_stok_sistem");
+                    int stokTersedia = Math.min(stokRak, stokSistem);
+
+                    if (qtyBaru > stokTersedia) {
+                        javax.swing.JOptionPane.showMessageDialog(
+                            null,
+                            "Stok produk '" + namaProduk + "' tidak mencukupi!\nStok di sistem saat ini: " + stokSistem + "\nStok di rak saat ini: " + stokRak,
+                            "Peringatan Stok",
+                            javax.swing.JOptionPane.WARNING_MESSAGE
+                        );
+                        qtyBaru = Math.max(1, stokTersedia);
+                    }
+                }
+
+                int hargaBersih = hargaAsli - hargaDiskon;
+                int subtotalBaru = qtyBaru * hargaBersih;
+
+                modelBaru.setValueAt(qtyBaru, row, 2);
+                modelBaru.setValueAt(subtotalBaru, row, 5);
+                perbaruiRingkasanKeranjang(modelBaru);
+
+            } catch (NumberFormatException ex) {
+                javax.swing.JOptionPane.showMessageDialog(null, "QTY harus berupa angka bulat!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                int hargaAsli = Integer.parseInt(modelBaru.getValueAt(row, 3).toString().replaceAll("[^0-9]", ""));
+                int hargaDiskon = Integer.parseInt(modelBaru.getValueAt(row, 4).toString().replaceAll("[^0-9]", ""));
+                modelBaru.setValueAt(1, row, 2);
+                modelBaru.setValueAt(hargaAsli - hargaDiskon, row, 5);
+                perbaruiRingkasanKeranjang(modelBaru);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                sedangUpdateQty = false;
+            }
+        }
+    });
+}
+    
+    public void cetakStrukKasir(String kodeTrx, String tanggal, String kasir, javax.swing.table.TableModel modelItem, double totalBelanja, double bayar, double kembalian, String metodePembayaran, String statusPesanan, String namaPentransfer, String noRekening) {
         java.awt.print.PrinterJob printerJob = java.awt.print.PrinterJob.getPrinterJob();
         
-        // ATUR UKURAN KERTAS SECARA DINAMIS BERDASARKAN JUMLAH ITEM
         java.awt.print.PageFormat pageFormat = printerJob.defaultPage();
         java.awt.print.Paper paper = pageFormat.getPaper();
-        double width = 200.0; // Lebar tetap untuk struk thermal
+        double width = 200.0;
         
-        // Hitung tinggi kertas otomatis (menyesuaikan tambahan baris alamat)
         int jumlahItem = modelItem.getRowCount();
-        double height = 180.0 + (jumlahItem * 25.0); 
+        double extraNonTunai = (metodePembayaran != null && !metodePembayaran.equalsIgnoreCase("Tunai")) ? 30.0 : 10.0;
+        double height = 180.0 + (jumlahItem * 25.0) + extraNonTunai; 
         
         paper.setSize(width, height);
         paper.setImageableArea(5, 5, width - 10, height - 10);
@@ -102,18 +389,17 @@ public class FormTransaksi extends javax.swing.JFrame {
 
                 // Daftar Belanja Produk dari Tabel Keranjang
                 for (int i = 0; i < modelItem.getRowCount(); i++) {
-                String nama = modelItem.getValueAt(i, 1).toString();  // Nama Produk
-                String qty = modelItem.getValueAt(i, 2).toString();   // Qty
-                String hargaNormal = modelItem.getValueAt(i, 3).toString(); // Harga Asli
-                String diskon = modelItem.getValueAt(i, 4).toString();      // Diskon
-                String subtotal = modelItem.getValueAt(i, 5).toString();    // Subtotal
+                String nama = modelItem.getValueAt(i, 1).toString();  
+                String qty = modelItem.getValueAt(i, 2).toString();   
+                String hargaNormal = modelItem.getValueAt(i, 3).toString(); 
+                String diskon = modelItem.getValueAt(i, 4).toString();      
+                String subtotal = modelItem.getValueAt(i, 5).toString();    
     
                 if (nama.length() > 18) nama = nama.substring(0, 18);
     
                 g2d.drawString(nama, x, y); y += 9;
                 g2d.drawString("  " + qty + " x Rp " + hargaNormal, x, y); y += 9;
-    
-                // Kalau ada diskon (tidak 0), cetak info diskonnya di bawah nama produk
+   
                 if (!diskon.equals("Rp 0") && !diskon.equals("0")) {
                 g2d.drawString("  Diskon: -" + diskon, x, y); y += 9;
                 }
@@ -125,6 +411,15 @@ public class FormTransaksi extends javax.swing.JFrame {
                 g2d.drawString("TOTAL   : Rp " + String.format("%,.0f", totalBelanja), x, y); y += 10;
                 g2d.drawString("BAYAR   : Rp " + String.format("%,.0f", bayar), x, y); y += 10;
                 g2d.drawString("KEMBALI : Rp " + String.format("%,.0f", kembalian), x, y); y += 10;
+                g2d.drawString("Metode  : " + metodePembayaran, x, y); y += 10;
+
+                if (metodePembayaran != null && !metodePembayaran.equalsIgnoreCase("Tunai")) {
+                    String pengirimTampil = (namaPentransfer != null && namaPentransfer.length() > 18) ? namaPentransfer.substring(0, 18) : namaPentransfer;
+                    String rekTampil = (noRekening != null && noRekening.length() > 18) ? noRekening.substring(0, 18) : noRekening;
+                    g2d.drawString("Pengirim: " + pengirimTampil, x, y); y += 10;
+                    g2d.drawString("No. Rek : " + rekTampil, x, y); y += 10;
+                }
+
                 g2d.drawString("-----------------------------", x, y); y += 10;
                 g2d.drawString(" TERIMA KASIH TELAH BERBELANJA ", x, y); y += 10;
                 g2d.drawString("   DI TOKO ALAM BUAH SEGAR    ", x, y);
@@ -153,13 +448,13 @@ public class FormTransaksi extends javax.swing.JFrame {
         java.sql.ResultSet rsStok = pstStok.executeQuery();
         
         int stokDatabase = 0;
-        double hargaAsli = 0;   // Harga normal murni dari database (misal: 20000)
-        double hargaDiskon = 0; // Diskon dari database (misal: 1000)
+        double hargaAsli = 0;   
+        double hargaDiskon = 0; 
         
         if (rsStok.next()) {
             stokDatabase = rsStok.getInt("stok_di_rak");
-            hargaAsli = rsStok.getDouble("harga_jual");     // Ambil harga asli dari DB
-            hargaDiskon = rsStok.getDouble("harga_diskon"); // Ambil diskon dari DB
+            hargaAsli = rsStok.getDouble("harga_jual");     
+            hargaDiskon = rsStok.getDouble("harga_diskon"); 
         }
         
         // 2. Cek jumlah (qty) produk yang sudah ada di keranjang belanja saat ini
@@ -188,23 +483,23 @@ public class FormTransaksi extends javax.swing.JFrame {
         }
         
         // 4. Hitung subtotal yang benar: (Harga Asli - Diskon) * Qty
-        double hargaBersih = hargaAsli - hargaDiskon; // Contoh: 20000 - 1000 = 19000
+        double hargaBersih = hargaAsli - hargaDiskon; 
         
         if (ditemukan) {
             int qtyBaru = qtyDiKeranjang + 1;
             int subtotalBaru = (int) (qtyBaru * hargaBersih);
-            model.setValueAt(qtyBaru, barisDitemukan, 2);          // Update Qty
-            model.setValueAt(subtotalBaru, barisDitemukan, 5);     // Update Subtotal (kolom 5)
+            model.setValueAt(qtyBaru, barisDitemukan, 2);          
+            model.setValueAt(subtotalBaru, barisDitemukan, 5);     
         } else {
             int no = model.getRowCount() + 1;
             int subtotalBaru = (int) (1 * hargaBersih);
             model.addRow(new Object[]{
-                no,                  // Kolom 0: NO
-                namaProduk,          // Kolom 1: NAMA PRODUK
-                1,                   // Kolom 2: QTY
-                (int) hargaAsli,     // Kolom 3: HARGA PRODUK (Tetap utuh 20000, tidak ikut kepotong)
-                (int) hargaDiskon,   // Kolom 4: DISKON (1000)
-                (int) subtotalBaru   // Kolom 5: SUBTOTAL (19000)
+                no,                  
+                namaProduk,          
+                1,                   
+                (int) hargaAsli,     
+                (int) hargaDiskon,   
+                (int) subtotalBaru   
             });
         }
         
@@ -1311,6 +1606,35 @@ public class FormTransaksi extends javax.swing.JFrame {
         return;
         }
 
+        // Input Nama Pentransfer & No. Rekening jika metode bukan Tunai (Transfer / QRIS)
+        String namaPentransfer = "-";
+        String noRekening = "-";
+        if (!metodePembayaran.equalsIgnoreCase("Tunai")) {
+            namaPentransfer = javax.swing.JOptionPane.showInputDialog(
+                this,
+                "Masukkan Nama Pentransfer (" + metodePembayaran + "):",
+                "Informasi Pembayaran Non-Tunai",
+                javax.swing.JOptionPane.QUESTION_MESSAGE
+            );
+            if (namaPentransfer == null || namaPentransfer.trim().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Nama pentransfer wajib diisi untuk pembayaran " + metodePembayaran + "!");
+                return;
+            }
+            namaPentransfer = namaPentransfer.trim();
+
+            noRekening = javax.swing.JOptionPane.showInputDialog(
+                this,
+                "Masukkan No. Rekening / Akun Pengirim:",
+                "Informasi Pembayaran Non-Tunai",
+                javax.swing.JOptionPane.QUESTION_MESSAGE
+            );
+            if (noRekening == null || noRekening.trim().isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this, "No. rekening wajib diisi untuk pembayaran " + metodePembayaran + "!");
+                return;
+            }
+            noRekening = noRekening.trim();
+        }
+
         // Validasi: Cek apakah stok di rak mencukupi sebelum transaksi diproses
         for (int i = 0; i < modelKeranjang.getRowCount(); i++) {
             String namaProduk = modelKeranjang.getValueAt(i, 1).toString();
@@ -1380,6 +1704,10 @@ public class FormTransaksi extends javax.swing.JFrame {
             idTrxBaru = rsKey.getInt(1);
         }
 
+        // Kumpulkan daftar produk yang stok rak-nya menipis (<= 10) setelah transaksi
+        java.util.List<String> daftarStokMenipis = new java.util.ArrayList<>();
+        int batasStokMenipis = 10;
+
         // 3. Simpan setiap item barang ke tabel 'detail_transaksi' & KURANGI STOK RAK & STOK SISTEM
         for (int i = 0; i < modelKeranjang.getRowCount(); i++) {
             String namaProduk = modelKeranjang.getValueAt(i, 1).toString(); // Nama produk ada di kolom 1
@@ -1388,14 +1716,16 @@ public class FormTransaksi extends javax.swing.JFrame {
             double subtotal = Double.parseDouble(modelKeranjang.getValueAt(i, 5).toString().replaceAll("[^0-9]", "")); 
 
             // Cari id_produk otomatis berdasarkan nama produk di database
-            String sqlCariId = "SELECT id_produk FROM produk WHERE nama_produk = ?";
+            String sqlCariId = "SELECT id_produk, stok_di_rak FROM produk WHERE nama_produk = ?";
             java.sql.PreparedStatement pstCari = conn.prepareStatement(sqlCariId);
             pstCari.setString(1, namaProduk);
             java.sql.ResultSet rsCari = pstCari.executeQuery();
             
             String idProduk = "1"; // Default jika tidak ketemu
+            int stokRakSebelum = 0;
             if (rsCari.next()) {
                 idProduk = rsCari.getString("id_produk");
+                stokRakSebelum = rsCari.getInt("stok_di_rak");
             }
 
             // Simpan ke detail_transaksi
@@ -1415,23 +1745,42 @@ public class FormTransaksi extends javax.swing.JFrame {
             pstStok.setInt(2, qyt);
             pstStok.setString(3, idProduk);
             pstStok.executeUpdate();
+
+            // Cek sisa stok rak setelah dikurangi QTY transaksi
+            int sisaStokRak = Math.max(0, stokRakSebelum - qyt);
+            if (sisaStokRak <= batasStokMenipis) {
+                daftarStokMenipis.add("- " + namaProduk + " (sisa di rak: " + sisaStokRak + ")");
+            }
         }
 
         // 4. Catat otomatis ke tabel 'riwayat_aktivitas' (id_pengguna sekarang terisi dinamis!)
         String sqlLog = "INSERT INTO riwayat_aktivitas (id_pengguna, waktu_aktivitas, deskripsi_aktivitas) VALUES (?, NOW(), ?)";
         java.sql.PreparedStatement pstLog = conn.prepareStatement(sqlLog);
         pstLog.setInt(1, idUser);
-        pstLog.setString(2, "Melakukan transaksi penjualan baru dengan nomor struk: " + noStruk + " (Status: " + statusPesanan + ")");
+        String detailBayarLog = metodePembayaran.equalsIgnoreCase("Tunai")
+                ? ""
+                : ", Pengirim: " + namaPentransfer + " (" + noRekening + ")";
+        pstLog.setString(2, "Melakukan transaksi penjualan baru dengan nomor struk: " + noStruk + " (Status: " + statusPesanan + detailBayarLog + ")");
         pstLog.executeUpdate();
 
         // 5. TAMPILKAN KEMBALIAN DAN PESAN SUKSES DULUAN (SESUAI LOGIKA KASIR)
         txtKembalian.setText(String.format("%,.0f", kembalian));
         javax.swing.JOptionPane.showMessageDialog(this, "Transaksi Berhasil Disimpan!\nStatus: " + statusPesanan + "\nUang Kembalian: Rp " + String.format("%,.0f", kembalian));
+
+        // Peringatan dini jika ada produk yang sisa stok di rak <= 10 setelah transaksi
+        if (!daftarStokMenipis.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Perhatian! Stok di rak sudah menipis (batas <= " + batasStokMenipis + "), segera siapkan/lakukan restock:\n" + String.join("\n", daftarStokMenipis),
+                "Peringatan Stok Menipis",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+        }
         
         // 6. BARU SETELAH DI-KLIK OK, PROSES CETAK STRUK BERJALAN
         String tanggalTrx = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         String namaKasir = jLabelUser.getText(); 
-        cetakStrukKasir(noStruk, tanggalTrx, namaKasir, modelKeranjang, totalBelanja, uangBayar, kembalian);
+        cetakStrukKasir(noStruk, tanggalTrx, namaKasir, modelKeranjang, totalBelanja, uangBayar, kembalian, metodePembayaran, statusPesanan, namaPentransfer, noRekening);
 
         // Kosongkan keranjang dan field setelah semuanya selesai
         modelKeranjang.setRowCount(0);
