@@ -75,24 +75,24 @@ private void gantiPeringatanPromo() {
 
         // 3. Peringatan Stok
         String sqlStok = "SELECT stok_di_rak, total_stok_sistem FROM produk";
-        java.sql.ResultSet rsStokData = stmt.executeQuery(sqlStok);
-        
-        int totalHabis = 0;
-        int totalSelisih = 0;
-        int totalMenipis = 0;
-        
-        while (rsStokData.next()) {
-            int stokRak = rsStokData.getInt("stok_di_rak");
-            int stokSistem = rsStokData.getInt("total_stok_sistem");
-            
-            if (stokRak == 0 && stokSistem == 0) {
-                totalHabis++;
-            } else if (stokRak != stokSistem) {
-                totalSelisih++;
-            } else if (stokRak <= 5) {
-                totalMenipis++;
-            }
-        }
+java.sql.ResultSet rsStokData = stmt.executeQuery(sqlStok);
+
+int totalHabis = 0;
+int totalSelisih = 0;
+int totalMenipis = 0;
+
+while (rsStokData.next()) {
+    int stokRak = rsStokData.getInt("stok_di_rak");
+    int stokSistem = rsStokData.getInt("total_stok_sistem");
+
+    if (stokRak == 0 && stokSistem == 0) {
+        totalHabis++;
+    } else if (stokRak != stokSistem) {
+        totalSelisih++;
+    } else if (stokRak <= 10) {
+        totalMenipis++;
+    }
+}
         
         int totalPeringatan = totalHabis + totalSelisih + totalMenipis;
         lblTotalPeringatan.setText(totalPeringatan + " Produk");
